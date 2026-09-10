@@ -1,26 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-poppins",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Jade Workshop | Ateliers Céramique & Grès à Paris",
-  description: "Réservez votre atelier artisanal de tournage, modelage et émaillage à Paris avec Jade. Réservation simple et instantanée en 3 clics.",
-  keywords: ["céramique", "poterie", "atelier paris", "tournage", "modelage", "artisanat", "jade workshop"],
-  openGraph: {
-    title: "Jade Workshop | Ateliers Céramique & Grès à Paris",
-    description: "Réservez votre atelier artisanal de tournage, modelage et émaillage en 3 clics.",
-    type: "website",
-  },
+  title: "Evento | Your Ultimate Event Planning Partner",
+  description: "Craft unforgettable events with Evento. Discover our upcoming sessions, workshops and reserve your spot.",
 };
 
 export default function RootLayout({
@@ -30,10 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="fr"
-      className={`${geistSans.variable} ${geistMono.variable} scroll-smooth antialiased`}
+      lang="en"
+      className={`${poppins.variable} scroll-smooth antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-warm-50 text-charcoal">{children}</body>
+      <body className="min-h-full flex flex-col font-sans">{children}</body>
     </html>
   );
 }

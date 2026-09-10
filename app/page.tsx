@@ -12,16 +12,18 @@ import {
   Phone,
   Mail,
   ArrowRight,
+  Play,
   CheckCircle2,
   Users,
+  Compass,
   Star,
   Quote,
-  Heart,
+  TrendingUp,
+  Globe,
+  Sliders,
   ShieldCheck,
-  Compass,
-  Smile,
-  Layers,
   Award,
+  Video,
 } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -30,7 +32,7 @@ const DEMO_WORKSHOPS: WorkshopWithAvailability[] = [
   {
     id: 'demo-1',
     title: 'Initiation au Tournage & Grès Blanc',
-    description: 'Découvrez les gestes fondamentaux du tournage : centrage, perçage et montée de terre pour façonner vos premiers bols ou tasses.',
+    description: 'Découvrez les gestes fondamentaux du potier : centrage, perçage et montée de terre pour façonner vos premiers bols ou tasses.',
     date: '2026-10-17',
     start_time: '14:00',
     end_time: '16:30',
@@ -43,7 +45,7 @@ const DEMO_WORKSHOPS: WorkshopWithAvailability[] = [
   {
     id: 'demo-2',
     title: 'Modelage Intuitif & Émaux Terracotta',
-    description: 'Façonnez librement à la main avec les techniques ancestrales du pincé et colombin, puis appliquez nos engobes chauds signature.',
+    description: 'Façonnez librement à la main selon les techniques du pincé et du colombin, puis explorez nos engobes artisanaux aux nuances chaudes.',
     date: '2026-10-24',
     start_time: '10:00',
     end_time: '13:00',
@@ -56,7 +58,7 @@ const DEMO_WORKSHOPS: WorkshopWithAvailability[] = [
   {
     id: 'demo-3',
     title: 'Vases Organiques & Fleurs Séchées',
-    description: 'Créez un vase sculptural aux lignes épurées et organiques, cuit à haute température pour accueillir vos bouquets d’artisan.',
+    description: 'Créez un vase sculptural aux lignes épurées et organiques, cuit à haute température (1250°C), idéal pour accueillir vos compositions.',
     date: '2026-10-31',
     start_time: '15:00',
     end_time: '18:00',
@@ -85,144 +87,89 @@ export default async function HomePage() {
   const workshops = await loadWorkshops();
 
   return (
-    <div className="min-h-screen bg-[#F8F9FD] text-[#1B1C57] font-sans antialiased selection:bg-[#1B1C57] selection:text-white">
+    <div className="min-h-screen bg-[#F8F9FD] text-[#121244] font-sans antialiased selection:bg-[#121244] selection:text-white">
       {/* ============================================================================== */}
-      {/* 1. HEADER / NAVIGATION MODERNE                                                 */}
+      {/* 1. NAVBAR EXACTE STYLE EVENTO                                                  */}
       {/* ============================================================================== */}
-      <header className="sticky top-0 z-50 bg-[#F8F9FD]/95 backdrop-blur-md border-b border-gray-200/60 transition-all">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          {/* Logo JADE Élégant */}
-          <Link href="/" className="flex items-center gap-1.5 group">
-            <span className="font-extrabold text-2xl tracking-tighter text-[#1B1C57]">
-              JAD<span className="text-[#D93829]">E</span>
+      <header className="sticky top-0 z-50 bg-[#F8F9FD]/95 backdrop-blur-md border-b border-gray-200/50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+          {/* Logo EVENTO */}
+          <Link href="/" className="flex items-center gap-0.5 group">
+            <span className="font-black text-3xl tracking-tight text-[#121244]">
+              EVENT
             </span>
-            <span className="hidden sm:inline-block text-[10px] uppercase font-bold tracking-widest text-[#64748B] pl-2 border-l border-gray-300">
-              Studio Céramique
+            <span className="font-black text-3xl tracking-tight text-[#D93829] -ml-0.5">
+              O
             </span>
           </Link>
 
-          {/* Navigation Centrale Ancrée */}
-          <nav className="hidden md:flex items-center gap-9 text-sm font-semibold text-[#1B1C57]/80">
-            <a href="#ateliers" className="hover:text-[#D93829] transition-colors">
-              Ateliers
+          {/* Navigation textuelle à droite */}
+          <nav className="flex items-center gap-8 md:gap-10 text-sm font-semibold text-[#121244]/85">
+            <a href="/" className="hover:text-[#D93829] transition-colors">
+              Home
             </a>
-            <a href="#a-propos" className="hover:text-[#D93829] transition-colors">
-              À Propos
+            <a href="#about-us" className="hover:text-[#D93829] transition-colors">
+              About Us
             </a>
-            <a href="#avantages" className="hover:text-[#D93829] transition-colors">
-              Pourquoi Venir
+            <a href="#speakers" className="hover:text-[#D93829] transition-colors">
+              Hôte
             </a>
-            <a href="#contact" className="hover:text-[#D93829] transition-colors">
-              Contact
+            <a href="#events" className="hover:text-[#D93829] transition-colors">
+              Events
+            </a>
+            <a href="#contact-us" className="hover:text-[#D93829] transition-colors">
+              Contact Us
             </a>
           </nav>
-
-          {/* Bouton CTA d'Action à Droite */}
-          <div className="flex items-center gap-4">
-            <a
-              href="#ateliers"
-              className="px-6 py-2.5 rounded-full text-xs font-bold tracking-wide bg-[#1B1C57] hover:bg-[#252775] text-white transition-all shadow-sm hover:shadow-md hover:scale-105 active:scale-95 cursor-pointer"
-            >
-              Voir les ateliers
-            </a>
-          </div>
         </div>
       </header>
 
-      <main>
+      <main className="space-y-24 md:space-y-32">
         {/* ============================================================================== */}
-        {/* 2. HERO SECTION IMPACTANTE (LAYOUT 2 COLONNES)                                 */}
+        {/* 2. HERO SECTION (AVEC L'IMAGE ORIGINALE EXACTE SANS FOND RAJOUTÉ)             */}
         {/* ============================================================================== */}
-        <section className="py-16 md:py-24 overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-              {/* Colonne Gauche : Accroche & Call-to-Action */}
+        <section className="relative pt-10 md:pt-16 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 lg:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              {/* Colonne Gauche : Titre Poppins & 2 Boutons Ovals */}
               <div className="lg:col-span-6 space-y-6 text-left">
-                {/* Petit badge surtitre Terracotta */}
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#D93829]/10 text-[#D93829] text-xs font-bold uppercase tracking-wider">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>Ateliers Créatifs & Artisanal</span>
-                </div>
-
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#1B1C57] tracking-tight leading-[1.12]">
-                  Réservez votre atelier créatif en quelques clics
+                <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-black text-[#121244] tracking-tight leading-[1.15]">
+                  Craft unforgettable events with Evento-your ultimate event planning partner
                 </h1>
 
-                <p className="text-base sm:text-lg text-[#64748B] leading-relaxed max-w-xl">
-                  Initiez-vous au tournage et au modelage du grès au cœur de Paris.
-                  Des sessions intimistes pensées pour ralentir, ressentir la terre et repartir avec vos propres créations cuites et émaillées.
+                <p className="text-base sm:text-lg text-gray-600 max-w-lg leading-relaxed font-normal">
+                  At Evento, we specialize in bringing your vision to life with flawless planning and execution. From weddings to corporate events, we craft experiences that leave a lasting impression.
                 </p>
 
-                {/* 2 Boutons côte-à-côte */}
+                {/* 2 Boutons Ovals de la Maquette */}
                 <div className="pt-2 flex flex-wrap items-center gap-4">
                   <a
-                    href="#ateliers"
-                    className="px-8 py-4 bg-[#1B1C57] hover:bg-[#252775] text-white font-bold rounded-full text-sm transition-all shadow-md hover:shadow-xl hover:scale-105 active:scale-95 flex items-center gap-2 cursor-pointer"
+                    href="#events"
+                    className="px-8 py-3.5 bg-[#121244] hover:bg-[#1B1C57] text-white font-bold rounded-full text-sm transition-all shadow-md hover:shadow-xl hover:scale-105 active:scale-95 cursor-pointer"
                   >
-                    <span>Explorer les ateliers</span>
-                    <ArrowRight className="w-4 h-4" />
+                    Learn more
                   </a>
                   <a
-                    href="#a-propos"
-                    className="px-8 py-4 bg-white hover:bg-gray-50 text-[#1B1C57] font-bold rounded-full text-sm border border-gray-300 hover:border-[#1B1C57] transition-all shadow-xs"
+                    href="#contact-us"
+                    className="px-8 py-3.5 bg-transparent hover:bg-white text-[#121244] font-bold rounded-full text-sm border border-[#121244] transition-all hover:shadow-md"
                   >
-                    En savoir plus
+                    Contact us
                   </a>
-                </div>
-
-                {/* Mention réassurance */}
-                <div className="pt-4 flex items-center gap-6 text-xs text-[#64748B]">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                    <span>Matériel & cuissons inclus</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                    <span>Débutants bienvenus</span>
-                  </div>
                 </div>
               </div>
 
-              {/* Colonne Droite : Visuel structuré avec masque arrondi & badges flottants */}
+              {/* Colonne Droite : L'Image Originale du Template EVENTO (SANS FOND ARTIFICIEL) */}
               <div className="lg:col-span-6 relative flex justify-center items-center">
-                {/* Aura décorative d'arrière-plan */}
-                <div className="absolute w-[360px] h-[360px] sm:w-[480px] sm:h-[480px] rounded-full bg-gradient-to-tr from-indigo-100/60 to-rose-100/40 -z-10 blur-2xl" />
-
-                <div className="relative w-full max-w-md aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white">
+                <div className="relative w-full max-w-[520px] flex items-center justify-center">
                   <Image
-                    src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=1200&q=80"
-                    alt="Jade façonnant une pièce au tour de potier à Paris"
-                    fill
+                    src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1552.webp"
+                    alt="Evento Banner Image"
+                    width={523}
+                    height={472}
                     priority
                     loading="eager"
-                    className="object-cover object-center"
-                    sizes="(max-width: 768px) 100vw, 500px"
+                    className="w-full h-auto object-contain"
                   />
-
-                  {/* Dégradé léger bas */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-
-                  {/* Badge Flottant Inférieur : "Petits groupes & Matériel fourni" */}
-                  <div className="absolute bottom-5 left-5 right-5 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3.5">
-                    <div className="w-10 h-10 rounded-xl bg-[#1B1C57] text-white flex items-center justify-center shrink-0 shadow-sm">
-                      <Users className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-[#1B1C57]">Petits groupes & Matériel fourni</p>
-                      <p className="text-xs text-[#64748B]">6 à 8 participants max par session</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Badge Flottant Haut Droite : Sessions */}
-                <div className="absolute -top-3 -right-2 sm:right-4 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-2.5 animate-bounce-slow">
-                  <Calendar className="w-4 h-4 text-[#D93829]" />
-                  <span className="text-xs font-bold text-[#1B1C57]">Sessions chaque semaine</span>
-                </div>
-
-                {/* Badge Flottant Haut Gauche : Sparkles */}
-                <div className="absolute top-12 -left-3 sm:-left-6 w-12 h-12 rounded-full bg-white shadow-xl border border-gray-100 flex items-center justify-center text-[#D93829]">
-                  <Sparkles className="w-5 h-5" />
                 </div>
               </div>
             </div>
@@ -230,316 +177,823 @@ export default async function HomePage() {
         </section>
 
         {/* ============================================================================== */}
-        {/* 3. SECTION "À PROPOS" (PREUVE SOCIALE & VALEUR)                                */}
+        {/* 3. SECTION "ABOUT US" (EXACT ZOHO EVENTO ASSETS)                                */}
         {/* ============================================================================== */}
-        <section id="a-propos" className="py-20 md:py-24 bg-white border-y border-gray-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+        <section id="about-us" className="py-12 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 space-y-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-              {/* Image d'Atelier avec Badge Flottant "500+ Participants" */}
+              {/* Photo avec badge flottant "100+ Events" */}
               <div className="lg:col-span-5 relative">
-                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl border border-gray-100">
+                <div className="relative aspect-[4/3] rounded-[32px] overflow-hidden shadow-xl bg-white">
                   <Image
-                    src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1000&q=80"
-                    alt="Atelier de poterie Jade à Paris"
+                    src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1553.webp"
+                    alt="About Section Image"
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 500px"
                   />
                 </div>
 
-                {/* Badge Flottant 500+ */}
-                <div className="absolute -bottom-5 -right-3 sm:right-4 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#1B1C57]/10 text-[#1B1C57] flex items-center justify-center shrink-0">
+                {/* Badge Flottant "100+ Events" */}
+                <div className="absolute top-10 -right-4 sm:-right-8 bg-[#ECEFFD]/95 backdrop-blur-md p-5 rounded-[28px] shadow-xl border border-indigo-100/80 flex items-center gap-3.5">
+                  <div className="w-10 h-10 rounded-2xl bg-[#121244] text-white flex items-center justify-center shrink-0 shadow-sm">
                     <Award className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="text-xl font-extrabold text-[#1B1C57] leading-tight block">
-                      500+
+                    <span className="text-2xl font-black text-[#121244] leading-tight block">
+                      100+
                     </span>
-                    <span className="text-xs text-[#64748B] font-medium">Créateurs initiés</span>
+                    <span className="text-xs text-gray-600 font-bold">Events</span>
                   </div>
                 </div>
               </div>
 
-              {/* Texte de Présentation */}
+              {/* Texte & 3 Bullet Points exacts */}
               <div className="lg:col-span-7 space-y-6 lg:pl-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D93829]/10 text-[#D93829] text-xs font-bold uppercase tracking-wider">
-                  <span>L&apos;expérience Jade</span>
-                </div>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#D93829]">
+                  About us
+                </span>
 
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1B1C57] tracking-tight leading-snug">
-                  L&apos;artisanat céramique accessible, chaleureux et bienveillant.
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-[#121244] tracking-tight leading-snug">
+                  Crafting unforgettable experiences, every time.
                 </h2>
 
-                <p className="text-[#64748B] text-base leading-relaxed">
-                  Céramiste passionnée installée à Paris, Jade vous accueille dans un studio baigné de lumière pensé comme un havre de paix.
-                  Chaque atelier est conçu pour vous déconnecter des écrans, développer votre sensibilité manuelle et ressentir la magie de voir une pièce prendre forme sous vos doigts.
+                <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+                  At Evento, we transform your vision into reality, ensuring every event, is a masterpiece of creativity, coordination, and unforgettable memories.
                 </p>
 
-                <p className="text-[#64748B] text-sm leading-relaxed">
-                  Toutes vos pièces bénéficient d&apos;un émaillage artisanal avec nos teintes minérales et d&apos;une double cuisson à haute température (1250°C), garantissant des objets étanches, alimentaires et conçus pour durer.
+                {/* 3 bullet points avec pastilles circulaires bleu profond */}
+                <ul className="space-y-3 pt-2">
+                  <li className="flex items-center gap-3 text-sm font-semibold text-[#121244]">
+                    <div className="w-5 h-5 rounded-full bg-[#121244] text-white flex items-center justify-center shrink-0">
+                      <div className="w-2 h-2 rounded-full bg-white" />
+                    </div>
+                    <span>Results-oriented strategies</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-sm font-semibold text-[#121244]">
+                    <div className="w-5 h-5 rounded-full bg-[#121244] text-white flex items-center justify-center shrink-0">
+                      <div className="w-2 h-2 rounded-full bg-white" />
+                    </div>
+                    <span>Multiplatform expertise</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-sm font-semibold text-[#121244]">
+                    <div className="w-5 h-5 rounded-full bg-[#121244] text-white flex items-center justify-center shrink-0">
+                      <div className="w-2 h-2 rounded-full bg-white" />
+                    </div>
+                    <span>24/7 dedicated support</span>
+                  </li>
+                </ul>
+
+                <div className="pt-2">
+                  <a
+                    href="#events"
+                    className="inline-block px-8 py-3 bg-[#121244] hover:bg-[#1B1C57] text-white font-bold rounded-full text-xs transition-all shadow-md"
+                  >
+                    Learn more
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Bandeau de logos partenaires officiels de la maquette */}
+            <div className="pt-8 border-t border-gray-200/60 flex flex-wrap items-center justify-between gap-8 opacity-80 hover:opacity-100 transition-all">
+              <div className="h-10 flex items-center">
+                <Image
+                  src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1569.webp"
+                  alt="Logo 1"
+                  width={100}
+                  height={40}
+                  className="h-10 w-auto object-contain"
+                />
+              </div>
+              <div className="h-10 flex items-center">
+                <Image
+                  src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1567.webp"
+                  alt="Logo 2"
+                  width={176}
+                  height={40}
+                  className="h-10 w-auto object-contain"
+                />
+              </div>
+              <div className="h-10 flex items-center">
+                <Image
+                  src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1568.webp"
+                  alt="Logo 3"
+                  width={174}
+                  height={39}
+                  className="h-10 w-auto object-contain"
+                />
+              </div>
+              <div className="h-10 flex items-center">
+                <Image
+                  src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1566.webp"
+                  alt="Logo 4"
+                  width={169}
+                  height={40}
+                  className="h-10 w-auto object-contain"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================================== */}
+        {/* 4. SECTION "OUR STORY" (IMAGES OFFICIELLES DU TEMPLATE)                         */}
+        {/* ============================================================================== */}
+        <section className="py-12">
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 space-y-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-6 space-y-3">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#D93829]">
+                  Our story
+                </span>
+                <h3 className="text-3xl sm:text-4xl font-extrabold text-[#121244] leading-snug">
+                  Connecting minds and shaping futures with Evento.
+                </h3>
+              </div>
+
+              <div className="lg:col-span-6 space-y-4 lg:pl-6">
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  Bring together innovative minds and unique ideas to create extraordinary, impactful events, We ensure every moment resonates curating extraordinary ideas to create unforgettable stories.
+                </p>
+                <a
+                  href="#events"
+                  className="inline-block px-7 py-3 bg-[#121244] hover:bg-[#1B1C57] text-white font-bold rounded-full text-xs transition-all shadow-md"
+                >
+                  Learn More
+                </a>
+              </div>
+            </div>
+
+            {/* Showcase Visuel Double avec Encart Vidéo et Image Officielle */}
+            <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+              <div className="lg:col-span-9 relative aspect-[16/9] rounded-[36px] overflow-hidden shadow-xl bg-white">
+                <Image
+                  src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1554.webp"
+                  alt="Event Image"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              {/* Encart superposé */}
+              <div className="lg:col-span-3 relative aspect-square rounded-[36px] overflow-hidden shadow-2xl border-4 border-white bg-white">
+                <Image
+                  src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1555.webp"
+                  alt="Speaker Image"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================================== */}
+        {/* 5. SECTION "SERVICES" / WHAT WE DO? (4 CARTES OFFICIELLES)                     */}
+        {/* ============================================================================== */}
+        <section id="services" className="py-12">
+          <div className="max-w-7xl mx-auto px-6 lg:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              {/* Colonne Gauche : 4 Cartes Blanches avec Icônes Carrées */}
+              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="bg-white p-7 rounded-[28px] border border-gray-100 shadow-sm space-y-3">
+                  <div className="w-11 h-11 rounded-2xl bg-[#121244] text-white flex items-center justify-center shadow-sm">
+                    <TrendingUp className="w-5 h-5" />
+                  </div>
+                  <h4 className="text-lg font-bold text-[#121244]">Business analysis</h4>
+                  <p className="text-xs text-gray-500 leading-relaxed">
+                    Transform insights into actions with strategic business analysis, tailored to elevate your event&apos;s success.
+                  </p>
+                </div>
+
+                <div className="bg-white p-7 rounded-[28px] border border-gray-100 shadow-sm space-y-3">
+                  <div className="w-11 h-11 rounded-2xl bg-[#121244] text-white flex items-center justify-center shadow-sm">
+                    <Users className="w-5 h-5" />
+                  </div>
+                  <h4 className="text-lg font-bold text-[#121244]">Business consulting</h4>
+                  <p className="text-xs text-gray-500 leading-relaxed">
+                    Empower your event&apos;s growth through tailored business consulting, maximizing potential at every stage.
+                  </p>
+                </div>
+
+                <div className="bg-white p-7 rounded-[28px] border border-gray-100 shadow-sm space-y-3">
+                  <div className="w-11 h-11 rounded-2xl bg-[#121244] text-white flex items-center justify-center shadow-sm">
+                    <Sliders className="w-5 h-5" />
+                  </div>
+                  <h4 className="text-lg font-bold text-[#121244]">Strategic planning</h4>
+                  <p className="text-xs text-gray-500 leading-relaxed">
+                    Craft a vision, align your goals, and execute them with precision with strategic planning for your event&apos;s excellence.
+                  </p>
+                </div>
+
+                <div className="bg-white p-7 rounded-[28px] border border-gray-100 shadow-sm space-y-3">
+                  <div className="w-11 h-11 rounded-2xl bg-[#121244] text-white flex items-center justify-center shadow-sm">
+                    <ShieldCheck className="w-5 h-5" />
+                  </div>
+                  <h4 className="text-lg font-bold text-[#121244]">Audit & evaluation</h4>
+                  <p className="text-xs text-gray-500 leading-relaxed">
+                    Uncover insights and ensure success through comprehensive audits and evaluations for your event&apos;s continuous improvement.
+                  </p>
+                </div>
+              </div>
+
+              {/* Colonne Droite : Titre & CTA */}
+              <div className="lg:col-span-5 space-y-5 lg:pl-6">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#D93829]">
+                  What we do?
+                </span>
+
+                <h3 className="text-3xl sm:text-4xl font-extrabold text-[#121244] tracking-tight leading-snug">
+                  Discover how our events can elevate your business
+                </h3>
+
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  Drive engagement, boost brand visibility, and create valuable connections with your target audiences. Transform your goals into achievements with our expertly managed events.
                 </p>
 
                 <div className="pt-2">
                   <a
-                    href="#ateliers"
-                    className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#1B1C57] hover:bg-[#252775] text-white font-bold rounded-full text-xs transition-all shadow-sm hover:shadow"
+                    href="#events"
+                    className="inline-block px-8 py-3.5 bg-[#121244] hover:bg-[#1B1C57] text-white font-bold rounded-full text-xs transition-all shadow-md"
                   >
-                    <span>Découvrir les prochaines dates</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    Browse Services
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================================== */}
+        {/* 6. SECTION "JOIN US" / 4 LIGNES HORIZONTALES D'AVANTAGES                        */}
+        {/* ============================================================================== */}
+        <section className="py-12 border-t border-gray-200/60">
+          <div className="max-w-7xl mx-auto px-6 lg:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              {/* Colonne Gauche : 4 Lignes avec Séparateurs */}
+              <div className="lg:col-span-7 space-y-6">
+                {/* Ligne 1 */}
+                <div className="flex items-start gap-5">
+                  <div className="w-12 h-12 rounded-full bg-[#121244] text-white flex items-center justify-center shrink-0 shadow-md">
+                    <Star className="w-5 h-5 fill-white" />
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="text-lg font-bold text-[#121244]">Expert Insights</h4>
+                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed max-w-md">
+                      Gain valuable knowledge from our industry. Discover tips, trends, and tactics to elevate your next event and drive success.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="border-t border-gray-200/80 pt-6">
+                  {/* Ligne 2 */}
+                  <div className="flex items-start gap-5">
+                    <div className="w-12 h-12 rounded-full bg-[#121244] text-white flex items-center justify-center shrink-0 shadow-md">
+                      <Globe className="w-5 h-5" />
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="text-lg font-bold text-[#121244]">Networking Opportunities</h4>
+                      <p className="text-xs sm:text-sm text-gray-600 leading-relaxed max-w-md">
+                        Unlock powerful networking opportunities, connect with industry leaders, forge meaningful relationships, and expand your business network through our expertly organized events.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-t border-gray-200/80 pt-6">
+                  {/* Ligne 3 */}
+                  <div className="flex items-start gap-5">
+                    <div className="w-12 h-12 rounded-full bg-[#121244] text-white flex items-center justify-center shrink-0 shadow-md">
+                      <Video className="w-5 h-5" />
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="text-lg font-bold text-[#121244]">Interactive Workshop</h4>
+                      <p className="text-xs sm:text-sm text-gray-600 leading-relaxed max-w-md">
+                        Engage your team with our interactive workshops&apos; hands-on learning experiences designed to inspire, educate, and drive innovation. Elevate skills and foster collaboration with dynamic, tailored sessions.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-t border-gray-200/80 pt-6">
+                  {/* Ligne 4 */}
+                  <div className="flex items-start gap-5">
+                    <div className="w-12 h-12 rounded-full bg-[#121244] text-white flex items-center justify-center shrink-0 shadow-md">
+                      <Clock className="w-5 h-5" />
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="text-lg font-bold text-[#121244]">Stay Update</h4>
+                      <p className="text-xs sm:text-sm text-gray-600 leading-relaxed max-w-md">
+                        Stay ahead of the curve with our latest updates. Get exclusive insights, event highlights, and trends delivered directly to you. Sign up to keep your business in the loop.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Colonne Droite : Titre & CTA */}
+              <div className="lg:col-span-5 space-y-6 lg:pl-8">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#D93829]">
+                  Join us
+                </span>
+
+                <h3 className="text-3xl sm:text-4xl font-extrabold text-[#121244] tracking-tight leading-snug">
+                  Unlock the benefits of attending our events
+                </h3>
+
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  Network with industry leaders, gain actionable insights, and discover cutting-edge trends. Experience firsthand how our expertly crafted events can propel your business forward and enhance your professional growth.
+                </p>
+
+                <div className="pt-2">
+                  <a
+                    href="#events"
+                    className="inline-block px-8 py-3.5 bg-[#121244] hover:bg-[#1B1C57] text-white font-bold rounded-full text-xs transition-all shadow-md"
+                  >
+                    Learn More
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================================== */}
+        {/* 7. SECTION "TOP CONFERENCES" (AVEC IMAGE OFFICIELLE ET CALENDRIER)             */}
+        {/* ============================================================================== */}
+        <section className="py-12 border-t border-gray-200/60">
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 space-y-16">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              {/* Colonne Gauche : Titre, When/Where et Bouton */}
+              <div className="lg:col-span-6 space-y-6">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#D93829]">
+                  Top conferences
+                </span>
+
+                <h3 className="text-3xl sm:text-4xl font-extrabold text-[#121244] tracking-tight leading-snug">
+                  Stay updated with the latest event details
+                </h3>
+
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  Never miss a beat stay informed with real-time updates on our latest events. From schedules to special announcements, get all the essential details delivered straight to you, ensuring you&apos;re always in the loop.
+                </p>
+
+                {/* Bloc When / Where avec séparateurs */}
+                <div className="border-t border-b border-gray-200/80 py-6 grid grid-cols-2 gap-6">
+                  {/* When */}
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2 text-sm font-bold text-[#121244]">
+                      <Calendar className="w-4 h-4 text-[#121244]" />
+                      <span>When</span>
+                    </div>
+                    <p className="text-xs text-gray-600 font-medium">Saturday & Sunday</p>
+                    <p className="text-xs text-gray-600 font-medium">July 23 - 25 2024</p>
+                    <p className="text-xs text-gray-600 font-medium">10:00 am to 2:00 pm</p>
+                  </div>
+
+                  {/* Where */}
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2 text-sm font-bold text-[#121244]">
+                      <Compass className="w-4 h-4 text-[#121244]" />
+                      <span>Where</span>
+                    </div>
+                    <p className="text-xs text-gray-600 font-medium">Mason Center Hall</p>
+                    <p className="text-xs text-gray-600 font-medium">San Francisco</p>
+                    <p className="text-xs text-gray-600 font-medium">United States</p>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <a
+                    href="#events"
+                    className="inline-block px-8 py-3.5 bg-[#121244] hover:bg-[#1B1C57] text-white font-bold rounded-full text-xs transition-all shadow-md"
+                  >
+                    Book Tickets
+                  </a>
+                </div>
+              </div>
+
+              {/* Colonne Droite : Image Officielle de la Conférence */}
+              <div className="lg:col-span-6 relative flex justify-center">
+                <div className="relative w-full max-w-[540px] aspect-[540/529] rounded-[36px] overflow-hidden shadow-2xl bg-white">
+                  <Image
+                    src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1564.webp"
+                    alt="Conference Image"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================================== */}
+        {/* 8. SECTION "OUR EXPERTS" (SPEAKERS AVEC LES 5 PHOTOS OFFICIELLES)              */}
+        {/* ============================================================================== */}
+        <section id="speakers" className="py-12 border-t border-gray-200/60 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center space-y-12">
+            <div className="max-w-2xl mx-auto space-y-3">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#D93829]">
+                Our experts
+              </span>
+              <h3 className="text-3xl sm:text-4xl font-extrabold text-[#121244] tracking-tight">
+                Meet Our Expert Speakers
+              </h3>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                Our team at Evento is a group of passionate, creative professionals with a shared love of turning ideas into memorable events.
+              </p>
+            </div>
+
+            {/* Rangée 1 de Speakers */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              {/* John */}
+              <div className="flex flex-col items-center space-y-4 group">
+                <div className="relative w-32 h-32 rounded-full overflow-hidden shadow-lg border-4 border-white group-hover:scale-105 transition-transform duration-300">
+                  <Image
+                    src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1556.webp"
+                    alt="John"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="w-full py-4 px-6 rounded-full bg-white shadow-sm border border-gray-100">
+                  <h4 className="font-extrabold text-base text-[#121244]">John</h4>
+                  <p className="text-xs text-gray-500 font-medium">Innovation Officer</p>
+                </div>
+              </div>
+
+              {/* Michael */}
+              <div className="flex flex-col items-center space-y-4 group">
+                <div className="relative w-32 h-32 rounded-full overflow-hidden shadow-lg border-4 border-white group-hover:scale-105 transition-transform duration-300">
+                  <Image
+                    src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1557.webp"
+                    alt="Michael"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="w-full py-4 px-6 rounded-full bg-white shadow-sm border border-gray-100">
+                  <h4 className="font-extrabold text-base text-[#121244]">Michael</h4>
+                  <p className="text-xs text-gray-500 font-medium">Product Designer</p>
+                </div>
+              </div>
+
+              {/* Sarah */}
+              <div className="flex flex-col items-center space-y-4 group">
+                <div className="relative w-32 h-32 rounded-full overflow-hidden shadow-lg border-4 border-white group-hover:scale-105 transition-transform duration-300">
+                  <Image
+                    src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1558.webp"
+                    alt="Sarah"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="w-full py-4 px-6 rounded-full bg-white shadow-sm border border-gray-100">
+                  <h4 className="font-extrabold text-base text-[#121244]">Sarah</h4>
+                  <p className="text-xs text-gray-500 font-medium">Marketing Strategist</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Rangée 2 de Speakers */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto pt-2">
+              {/* Robert */}
+              <div className="flex flex-col items-center space-y-4 group">
+                <div className="relative w-32 h-32 rounded-full overflow-hidden shadow-lg border-4 border-white group-hover:scale-105 transition-transform duration-300">
+                  <Image
+                    src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1559.webp"
+                    alt="Robert"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="w-full py-4 px-6 rounded-full bg-white shadow-sm border border-gray-100">
+                  <h4 className="font-extrabold text-base text-[#121244]">Robert</h4>
+                  <p className="text-xs text-gray-500 font-medium">UX/UI Expert</p>
+                </div>
+              </div>
+
+              {/* Michelle */}
+              <div className="flex flex-col items-center space-y-4 group">
+                <div className="relative w-32 h-32 rounded-full overflow-hidden shadow-lg border-4 border-white group-hover:scale-105 transition-transform duration-300">
+                  <Image
+                    src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1560.webp"
+                    alt="Michelle"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="w-full py-4 px-6 rounded-full bg-white shadow-sm border border-gray-100">
+                  <h4 className="font-extrabold text-base text-[#121244]">Michelle</h4>
+                  <p className="text-xs text-gray-500 font-medium">Technology Consultant</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================================== */}
+        {/* 9. SECTION "EVENTS SCHEDULE" (AVEC GRILLE DYNAMIQUE DE RÉSERVATION)           */}
+        {/* ============================================================================== */}
+        <section id="events" className="py-12 border-t border-gray-200/60 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 space-y-12">
+            {/* Header du planning */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end border-b border-gray-200/80 pb-6">
+              <div className="lg:col-span-5 space-y-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#D93829]">
+                  Our Conference Schedule 2024
+                </span>
+                <h3 className="text-3xl sm:text-4xl font-extrabold text-[#121244] tracking-tight">
+                  Discover our event schedule.
+                </h3>
+              </div>
+              <div className="lg:col-span-7">
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  Explore our dynamic event schedule to find exciting opportunities for networking, learning, and growth. Stay ahead of industry trends and connect with key players—our carefully curated events are designed to deliver impactful experiences and memorable moments.
+                </p>
+              </div>
+            </div>
+
+            {/* 3 Lignes du Planning Conférence */}
+            <div className="space-y-4">
+              {/* Day One */}
+              <div className="bg-white p-6 sm:p-8 rounded-[28px] border border-gray-100 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:shadow-md transition-shadow">
+                <div className="space-y-1 md:w-1/4">
+                  <h4 className="text-lg font-bold text-[#121244]">Day One,</h4>
+                  <p className="text-xs text-gray-500">September 18th, 2024</p>
+                  <span className="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-[10px] font-bold rounded-full mt-1">
+                    Live Stream
+                  </span>
+                </div>
+                <div className="space-y-1 md:w-1/2">
+                  <h5 className="text-base font-bold text-[#121244]">Tech innovations expo</h5>
+                  <p className="text-xs text-gray-600 leading-relaxed">
+                    Explore cutting-edge technologies and industry trends. Network with leading tech professionals and discover the groundbreaking innovations shaping the future.
+                  </p>
+                </div>
+                <div className="md:w-1/4 flex justify-start md:justify-end">
+                  <a
+                    href="#workshop-booking"
+                    className="px-6 py-2.5 bg-[#121244] hover:bg-[#1B1C57] text-white font-bold rounded-full text-xs transition-all shadow-sm"
+                  >
+                    Book Now
+                  </a>
+                </div>
+              </div>
+
+              {/* Day Two */}
+              <div className="bg-white p-6 sm:p-8 rounded-[28px] border border-gray-100 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:shadow-md transition-shadow">
+                <div className="space-y-1 md:w-1/4">
+                  <h4 className="text-lg font-bold text-[#121244]">Day Two,</h4>
+                  <p className="text-xs text-gray-500">September 19th, 2024</p>
+                  <span className="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-[10px] font-bold rounded-full mt-1">
+                    Live Stream
+                  </span>
+                </div>
+                <div className="space-y-1 md:w-1/2">
+                  <h5 className="text-base font-bold text-[#121244]">Leadership summit 2024</h5>
+                  <p className="text-xs text-gray-600 leading-relaxed">
+                    Gain insights from top leaders and industry experts on effective leadership strategies. Engage in workshops and panel discussions to enhance your skills.
+                  </p>
+                </div>
+                <div className="md:w-1/4 flex justify-start md:justify-end">
+                  <a
+                    href="#workshop-booking"
+                    className="px-6 py-2.5 bg-[#121244] hover:bg-[#1B1C57] text-white font-bold rounded-full text-xs transition-all shadow-sm"
+                  >
+                    Book Now
+                  </a>
+                </div>
+              </div>
+
+              {/* Day Three */}
+              <div className="bg-white p-6 sm:p-8 rounded-[28px] border border-gray-100 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:shadow-md transition-shadow">
+                <div className="space-y-1 md:w-1/4">
+                  <h4 className="text-lg font-bold text-[#121244]">Day Three,</h4>
+                  <p className="text-xs text-gray-500">September 20th, 2024</p>
+                  <span className="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-[10px] font-bold rounded-full mt-1">
+                    Live Stream
+                  </span>
+                </div>
+                <div className="space-y-1 md:w-1/2">
+                  <h5 className="text-base font-bold text-[#121244]">Finance and Investment</h5>
+                  <p className="text-xs text-gray-600 leading-relaxed">
+                    Learn from financial experts and investment professionals. Gain valuable insights into market trends, investment strategies, and financial planning.
+                  </p>
+                </div>
+                <div className="md:w-1/4 flex justify-start md:justify-end">
+                  <a
+                    href="#workshop-booking"
+                    className="px-6 py-2.5 bg-[#121244] hover:bg-[#1B1C57] text-white font-bold rounded-full text-xs transition-all shadow-sm"
+                  >
+                    Book Now
                   </a>
                 </div>
               </div>
             </div>
 
-            {/* Grille des 3 Avantages Clés avec Icônes Circulaires Indigo */}
-            <div id="avantages" className="pt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Avantage 1 */}
-              <div className="bg-[#F8F9FD] p-8 rounded-3xl border border-gray-100/90 shadow-sm space-y-4 hover:shadow-md transition-all">
-                <div className="w-12 h-12 rounded-full bg-[#1B1C57] text-white flex items-center justify-center shadow-md">
-                  <Smile className="w-6 h-6" />
+            {/* GRILLE D'INSCRIPTION EN DIRECT VIA WORKSHOPGRID (BDD NEON POSTGRESQL) */}
+            <div id="workshop-booking" className="pt-8 scroll-mt-20">
+              <div className="mb-6 flex items-center justify-between">
+                <div>
+                  <h4 className="text-xl font-bold text-[#121244]">
+                    Réserver une Session en Ligne
+                  </h4>
+                  <p className="text-xs text-gray-500">
+                    Sélectionnez votre créneau et bloquez votre place immédiatement.
+                  </p>
                 </div>
-                <h3 className="text-lg font-bold text-[#1B1C57]">
-                  Savoir-faire accessible à tous
+              </div>
+              <WorkshopGrid workshops={workshops} />
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================================== */}
+        {/* 10. SECTION "TESTIMONIALS" (AVEC LES 3 PHOTOS ET CARTES OFFICIELLES)           */}
+        {/* ============================================================================== */}
+        <section className="py-12 border-t border-gray-200/60">
+          <div className="max-w-7xl mx-auto px-6 lg:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+              {/* Colonne Gauche : Titre et Description */}
+              <div className="lg:col-span-5 space-y-6">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#D93829]">
+                  Testimonials
+                </span>
+
+                <h3 className="text-3xl sm:text-5xl font-extrabold text-[#121244] tracking-tight leading-tight">
+                  Hear from our customers
                 </h3>
-                <p className="text-sm text-[#64748B] leading-relaxed">
-                  Aucune compétence préalable n&apos;est requise. Jade vous guide pas à pas pour dompter la terre avec douceur, du centrage aux finitions.
+
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  Discover how our events have transformed businesses and created lasting memories. Read inspiring stories from satisfied clients and see how we turn visions into successful realities.
                 </p>
+
+                <div>
+                  <a
+                    href="#events"
+                    className="inline-block px-8 py-3 bg-[#121244] hover:bg-[#1B1C57] text-white font-bold rounded-full text-xs transition-all shadow-md"
+                  >
+                    Read All
+                  </a>
+                </div>
               </div>
 
-              {/* Avantage 2 */}
-              <div className="bg-[#F8F9FD] p-8 rounded-3xl border border-gray-100/90 shadow-sm space-y-4 hover:shadow-md transition-all">
-                <div className="w-12 h-12 rounded-full bg-[#1B1C57] text-white flex items-center justify-center shadow-md">
-                  <Layers className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-bold text-[#1B1C57]">
-                  Tout le matériel est fourni sur place
-                </h3>
-                <p className="text-sm text-[#64748B] leading-relaxed">
-                  Tours de potier professionnels, grès blanc & chamotté, tabliers, outils de modelage et cuissons haute température sont 100% inclus.
-                </p>
-              </div>
+              {/* Colonne Droite : 3 Cartes Bleues Foncées Officielles */}
+              <div className="lg:col-span-7 space-y-6">
+                {/* Carte 1 : John Smith */}
+                <div className="bg-[#121244] text-white rounded-[28px] p-7 sm:p-8 relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+                  <div className="space-y-3 max-w-sm z-10">
+                    <span className="text-3xl font-serif text-white/80 block">“</span>
+                    <h4 className="text-lg font-bold">Exceptional experience</h4>
+                    <p className="text-xs text-gray-300 leading-relaxed">
+                      &quot;The event exceeded all expectations. The meticulous planning and execution created an unforgettable atmosphere, making it an exceptional experience for all attendees.&quot;
+                    </p>
+                    <div className="pt-2">
+                      <p className="font-bold text-sm text-white">John Smith</p>
+                      <p className="text-xs text-gray-400">Managing Director</p>
+                    </div>
+                  </div>
 
-              {/* Avantage 3 */}
-              <div className="bg-[#F8F9FD] p-8 rounded-3xl border border-gray-100/90 shadow-sm space-y-4 hover:shadow-md transition-all">
-                <div className="w-12 h-12 rounded-full bg-[#1B1C57] text-white flex items-center justify-center shadow-md">
-                  <Users className="w-6 h-6" />
+                  <div className="relative w-36 h-48 sm:w-44 sm:h-56 shrink-0 overflow-hidden rounded-2xl">
+                    <Image
+                      src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1562.webp"
+                      alt="John Smith"
+                      fill
+                      className="object-cover object-top"
+                    />
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold text-[#1B1C57]">
-                  Groupes réduits pour un suivi personnalisé
-                </h3>
-                <p className="text-sm text-[#64748B] leading-relaxed">
-                  Sessions limitées à 6 ou 8 personnes pour garantir une attention sur-mesure, des échanges chaleureux et une ambiance relaxante.
-                </p>
+
+                {/* Carte 2 : Jessica Wilson */}
+                <div className="bg-[#121244] text-white rounded-[28px] p-7 sm:p-8 relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+                  <div className="space-y-3 max-w-sm z-10">
+                    <span className="text-3xl font-serif text-white/80 block">“</span>
+                    <h4 className="text-lg font-bold">Remarkable impact</h4>
+                    <p className="text-xs text-gray-300 leading-relaxed">
+                      &quot;Our brand visibility soared after the event. The expertly managed event left a remarkable impact, generating significant buzz and attracting new clients.&quot;
+                    </p>
+                    <div className="pt-2">
+                      <p className="font-bold text-sm text-white">Jessica Wilson</p>
+                      <p className="text-xs text-gray-400">Marketing Strategist</p>
+                    </div>
+                  </div>
+
+                  <div className="relative w-36 h-48 sm:w-44 sm:h-56 shrink-0 overflow-hidden rounded-2xl">
+                    <Image
+                      src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1561.webp"
+                      alt="Jessica Wilson"
+                      fill
+                      className="object-cover object-top"
+                    />
+                  </div>
+                </div>
+
+                {/* Carte 3 : Ethan Carter */}
+                <div className="bg-[#121244] text-white rounded-[28px] p-7 sm:p-8 relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+                  <div className="space-y-3 max-w-sm z-10">
+                    <span className="text-3xl font-serif text-white/80 block">“</span>
+                    <h4 className="text-lg font-bold">Unforgettable success</h4>
+                    <p className="text-xs text-gray-300 leading-relaxed">
+                      &quot;The event was a resounding success. Every detail was flawlessly handled, resulting in an unforgettable experience that truly showcased our brand&apos;s potential.&quot;
+                    </p>
+                    <div className="pt-2">
+                      <p className="font-bold text-sm text-white">Ethan Carter</p>
+                      <p className="text-xs text-gray-400">Corporate Executive</p>
+                    </div>
+                  </div>
+
+                  <div className="relative w-36 h-48 sm:w-44 sm:h-56 shrink-0 overflow-hidden rounded-2xl">
+                    <Image
+                      src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1563.webp"
+                      alt="Ethan Carter"
+                      fill
+                      className="object-cover object-top"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* ============================================================================== */}
-        {/* 4. SECTION ATELIERS (GRILLE DYNAMIQUE WORKSHOPGRID)                             */}
+        {/* 11. SECTION "CONTACT US" (3 CARTES + MAP + NEWSLETTER)                         */}
         {/* ============================================================================== */}
-        <section id="ateliers" className="py-20 md:py-24 scroll-mt-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-            {/* En-tête de Section */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2 border-b border-gray-200/50">
-              <div className="space-y-3 max-w-xl">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#D93829]/10 text-[#D93829] text-xs font-bold uppercase tracking-wider">
-                  <Calendar className="w-3.5 h-3.5" />
-                  <span>Planning des Sessions</span>
-                </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1B1C57] tracking-tight">
-                  Prochaines Sessions
-                </h2>
-                <p className="text-sm sm:text-base text-[#64748B] leading-relaxed">
-                  Choisissez votre créneau et réservez votre place en quelques instants.
-                  Le règlement s&apos;effectue sur place le jour de l&apos;atelier.
-                </p>
-              </div>
-
-              <div className="text-xs text-[#64748B] font-medium shrink-0 flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Disponibilités actualisées en direct</span>
-              </div>
-            </div>
-
-            {/* Grille Dynamique d'Ateliers avec Modale de Réservation */}
-            <WorkshopGrid workshops={workshops} />
-          </div>
-        </section>
-
-        {/* ============================================================================== */}
-        {/* 5. SECTION TÉMOIGNAGES & AVIS CLIENTS                                          */}
-        {/* ============================================================================== */}
-        <section className="py-20 md:py-24 bg-white border-t border-gray-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
+        <section id="contact-us" className="py-12 border-t border-gray-200/60 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 space-y-14">
             <div className="text-center max-w-2xl mx-auto space-y-3">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D93829]/10 text-[#D93829] text-xs font-bold uppercase tracking-wider">
-                <Star className="w-3.5 h-3.5 fill-[#D93829]" />
-                <span>Avis des Participants</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1B1C57] tracking-tight">
-                Ils ont partagé un moment à l&apos;atelier
-              </h2>
-              <p className="text-sm text-[#64748B] leading-relaxed">
-                Découvrez les retours bienveillants de celles et ceux qui ont poussé les portes du studio Jade.
+              <span className="text-xs font-bold uppercase tracking-wider text-[#D93829]">
+                Get in touch with us
+              </span>
+              <h3 className="text-3xl sm:text-5xl font-extrabold text-[#121244] tracking-tight">
+                Reach Out to Us Today
+              </h3>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                Connect with us today to start planning your next event. Our team is ready to turn your vision into a spectacular reality. Let&apos;s make it happen!
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Témoignage 1 */}
-              <div className="bg-[#F8F9FD] p-8 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-between space-y-6">
-                <div className="space-y-4">
-                  <div className="flex text-amber-400 gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-sm text-[#1B1C57] leading-relaxed italic">
-                    &quot;Une expérience magique ! Jade est d&apos;une pédagogie et d&apos;une patience incroyables. Je bois mon café chaque matin dans le mug que j&apos;ai tourné moi-même.&quot;
-                  </p>
-                </div>
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-200/60">
-                  <div className="w-10 h-10 rounded-full bg-[#1B1C57] text-white font-bold text-xs flex items-center justify-center">
-                    SL
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-[#1B1C57]">Sophie Laurent</h4>
-                    <p className="text-xs text-[#64748B]">Initiation Tournage Grès</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Témoignage 2 */}
-              <div className="bg-[#F8F9FD] p-8 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-between space-y-6">
-                <div className="space-y-4">
-                  <div className="flex text-amber-400 gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-sm text-[#1B1C57] leading-relaxed italic">
-                    &quot;Une parenthèse hors du temps au cœur de Paris. L&apos;ambiance est douce, le thé est délicieux et les pièces après cuisson sont de véritables œuvres d&apos;art.&quot;
-                  </p>
-                </div>
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-200/60">
-                  <div className="w-10 h-10 rounded-full bg-[#D93829] text-white font-bold text-xs flex items-center justify-center">
-                    AM
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-[#1B1C57]">Alexandre Moreau</h4>
-                    <p className="text-xs text-[#64748B]">Atelier Modelage & Émaux</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Témoignage 3 */}
-              <div className="bg-[#F8F9FD] p-8 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-between space-y-6">
-                <div className="space-y-4">
-                  <div className="flex text-amber-400 gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-sm text-[#1B1C57] leading-relaxed italic">
-                    &quot;Réservé en duo pour l&apos;anniversaire de ma sœur. Nous avons adoré chaque minute. L&apos;accompagnement est très rassurant même sans jamais avoir touché d&apos;argile.&quot;
-                  </p>
-                </div>
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-200/60">
-                  <div className="w-10 h-10 rounded-full bg-[#1B1C57] text-white font-bold text-xs flex items-center justify-center">
-                    CD
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-[#1B1C57]">Chloé Deslandes</h4>
-                    <p className="text-xs text-[#64748B]">Atelier Vases Organiques</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ============================================================================== */}
-        {/* 6. SECTION CONTACT & PRATIQUE                                                  */}
-        {/* ============================================================================== */}
-        <section id="contact" className="py-20 md:py-24 bg-[#F8F9FD] border-t border-gray-200/60">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-            <div className="text-center max-w-2xl mx-auto space-y-3">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D93829]/10 text-[#D93829] text-xs font-bold uppercase tracking-wider">
-                <MapPin className="w-3.5 h-3.5" />
-                <span>Venir à l&apos;Atelier</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1B1C57] tracking-tight">
-                Informations Pratiques & Contact
-              </h2>
-              <p className="text-sm text-[#64748B] leading-relaxed">
-                Une question sur un atelier, une privatisation pour un événement ou un bon cadeau ? Écrivez-nous ou rendez-nous visite.
-              </p>
-            </div>
-
-            {/* 3 Cartes Rapides */}
+            {/* 3 Cartes Visit / Call / Email */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Adresse */}
-              <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm flex items-center gap-5 hover:shadow-md transition-all">
-                <div className="w-12 h-12 rounded-full bg-[#1B1C57] text-white flex items-center justify-center shrink-0">
+              {/* Visit */}
+              <div className="bg-white p-7 rounded-[28px] border border-gray-100 shadow-sm flex items-center gap-5 hover:shadow-md transition-all">
+                <div className="w-12 h-12 rounded-full bg-[#121244] text-white flex items-center justify-center shrink-0">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-base text-[#1B1C57]">Studio Paris</h4>
-                  <p className="text-xs text-[#64748B] mt-1">14 rue des Artisans</p>
-                  <p className="text-xs text-[#64748B]">75011 Paris • Métro Voltaire</p>
+                  <h4 className="font-bold text-base text-[#121244]">Visit</h4>
+                  <p className="text-xs text-gray-500 mt-1">123 Main Street Kingston, New York 12401</p>
                 </div>
               </div>
 
-              {/* Téléphone */}
-              <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm flex items-center gap-5 hover:shadow-md transition-all">
-                <div className="w-12 h-12 rounded-full bg-[#1B1C57] text-white flex items-center justify-center shrink-0">
+              {/* Call */}
+              <div className="bg-white p-7 rounded-[28px] border border-gray-100 shadow-sm flex items-center gap-5 hover:shadow-md transition-all">
+                <div className="w-12 h-12 rounded-full bg-[#121244] text-white flex items-center justify-center shrink-0">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-base text-[#1B1C57]">Nous Appeler</h4>
-                  <p className="text-xs text-[#64748B] mt-1">01 42 85 90 12</p>
-                  <p className="text-xs text-[#64748B]">Mardi - Samedi (10h - 19h)</p>
+                  <h4 className="font-bold text-base text-[#121244]">Call</h4>
+                  <p className="text-xs text-gray-500 mt-1">555-123456</p>
+                  <p className="text-xs text-gray-500">555-123456</p>
                 </div>
               </div>
 
               {/* Email */}
-              <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm flex items-center gap-5 hover:shadow-md transition-all">
-                <div className="w-12 h-12 rounded-full bg-[#1B1C57] text-white flex items-center justify-center shrink-0">
+              <div className="bg-white p-7 rounded-[28px] border border-gray-100 shadow-sm flex items-center gap-5 hover:shadow-md transition-all">
+                <div className="w-12 h-12 rounded-full bg-[#121244] text-white flex items-center justify-center shrink-0">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-base text-[#1B1C57]">Nous Écrire</h4>
-                  <p className="text-xs text-[#64748B] mt-1">bonjour@jade-ceramique.fr</p>
-                  <p className="text-xs text-[#64748B]">Réponse sous 24h ouvrées</p>
+                  <h4 className="font-bold text-base text-[#121244]">Email</h4>
+                  <p className="text-xs text-gray-500 mt-1">robel.dock@example.com</p>
+                  <p className="text-xs text-gray-500">qsawayn@example.com</p>
                 </div>
               </div>
             </div>
 
-            {/* Rangée Plan Google Maps & Newsletter */}
+            {/* Rangée Google Map + Formulaire Newsletter */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
               {/* Carte Map */}
-              <div className="bg-white rounded-3xl overflow-hidden border border-gray-200/80 shadow-sm relative min-h-[340px]">
+              <div className="bg-white rounded-[28px] overflow-hidden border border-gray-200/80 shadow-sm relative min-h-[360px]">
                 <iframe
-                  title="Atelier Jade Céramique Paris"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.9916256937595!2d2.380065476839304!3d48.85837007133246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66df1d3e8e1ef%3A0x9d5b7a1e0b5f1a2b!2sVoltaire!5e0!3m2!1sfr!2sfr!4v1695000000000!5m2!1sfr!2sfr"
+                  title="Office Google Map"
+                  src="https://maps.google.com/maps?hl=en&amp;q=california&amp;ie=UTF8&amp;t=&amp;z=12&amp;iwloc=B&amp;output=embed"
                   className="w-full h-full border-0 absolute inset-0"
                   allowFullScreen
                   loading="lazy"
                 />
               </div>
 
-              {/* Newsletter Block */}
-              <div className="bg-white rounded-3xl p-8 sm:p-12 border border-gray-200/80 shadow-sm flex flex-col justify-center space-y-6">
+              {/* Formulaire Newsletter */}
+              <div className="bg-white rounded-[28px] p-8 sm:p-12 border border-gray-200/80 shadow-sm space-y-6 flex flex-col justify-center">
                 <div className="text-center space-y-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#D93829]">
-                    Restez Informé
-                  </span>
-                  <h3 className="text-2xl sm:text-3xl font-bold text-[#1B1C57]">
-                    Recevez nos prochaines dates
-                  </h3>
-                  <p className="text-xs text-[#64748B] max-w-sm mx-auto">
-                    Inscrivez-vous pour être averti en priorité lors de la mise en ligne des nouveaux créneaux mensuels.
+                  <h4 className="text-2xl sm:text-3xl font-extrabold text-[#121244]">
+                    Subscribe to our newsletter
+                  </h4>
+                  <p className="text-xs text-gray-500 max-w-sm mx-auto">
+                    Stay updated with our latest events, news, and offers.
                   </p>
                 </div>
 
@@ -551,61 +1005,112 @@ export default async function HomePage() {
       </main>
 
       {/* ============================================================================== */}
-      {/* 7. FOOTER ÉPURÉ                                                                */}
+      {/* 12. FOOTER (AVEC LOGO OFFICIEL ET 4 COLONNES)                                  */}
       {/* ============================================================================== */}
-      <footer className="bg-white text-[#64748B] pt-16 pb-12 border-t border-gray-200/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-gray-100">
-          {/* Colonne 1 : Logo & Descriptif */}
+      <footer className="bg-[#F0F2F8] text-[#2D3748] pt-16 pb-12 border-t border-gray-200/70">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-gray-200/70">
+          {/* Colonne 1 : Logo & Description */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-1">
-              <span className="font-extrabold text-2xl tracking-tighter text-[#1B1C57]">
-                JAD<span className="text-[#D93829]">E</span>
-              </span>
-            </Link>
-            <p className="text-xs text-[#64748B] leading-relaxed max-w-xs">
-              Studio artisanal d&apos;initiation au tournage céramique et au modelage du grès à Paris.
+            <div className="h-10 flex items-center">
+              <Image
+                src="https://static.zohocdn.com/sites/stock-images/images/zpstock-image-1565.webp"
+                alt="Footer Logo"
+                width={144}
+                height={47}
+                className="h-9 w-auto object-contain"
+              />
+            </div>
+            <p className="text-xs text-gray-500 leading-relaxed max-w-xs">
+              Create unforgettable events and experiences. Connect with us to start planning your next memorable occasion.
             </p>
-            <p className="text-xs text-[#64748B]">14 rue des Artisans, 75011 Paris</p>
+
+            <div className="flex items-center gap-3 pt-2">
+              <a
+                href="https://www.facebook.com"
+                target="_blank"
+                rel="noreferrer"
+                className="w-8 h-8 rounded-full bg-[#121244] text-white flex items-center justify-center hover:bg-[#D93829] transition-colors"
+                aria-label="Facebook"
+              >
+                <span className="text-xs font-bold">f</span>
+              </a>
+              <a
+                href="https://www.youtube.com"
+                target="_blank"
+                rel="noreferrer"
+                className="w-8 h-8 rounded-full bg-[#121244] text-white flex items-center justify-center hover:bg-[#D93829] transition-colors"
+                aria-label="YouTube"
+              >
+                <Play className="w-3.5 h-3.5 fill-white ml-0.5" />
+              </a>
+              <a
+                href="https://www.instagram.com"
+                target="_blank"
+                rel="noreferrer"
+                className="w-8 h-8 rounded-full bg-[#121244] text-white flex items-center justify-center hover:bg-[#D93829] transition-colors"
+                aria-label="Instagram"
+              >
+                <span className="text-xs font-bold">ig</span>
+              </a>
+            </div>
           </div>
 
-          {/* Colonne 2 : Navigation */}
+          {/* Colonne 2 : Useful Links */}
           <div className="space-y-3">
-            <h5 className="font-bold text-sm text-[#1B1C57]">Navigation</h5>
-            <ul className="space-y-2 text-xs">
-              <li><a href="#ateliers" className="hover:text-[#D93829] transition-colors">Nos Ateliers</a></li>
-              <li><a href="#a-propos" className="hover:text-[#D93829] transition-colors">L&apos;Expérience Jade</a></li>
-              <li><a href="#avantages" className="hover:text-[#D93829] transition-colors">Pourquoi Venir</a></li>
-              <li><a href="#contact" className="hover:text-[#D93829] transition-colors">Contact & Accès</a></li>
+            <h5 className="font-bold text-sm text-[#121244]">Useful Links</h5>
+            <ul className="space-y-2 text-xs text-gray-600">
+              <li><a href="/" className="hover:text-[#D93829] transition-colors">Home</a></li>
+              <li><a href="#about-us" className="hover:text-[#D93829] transition-colors">About Us</a></li>
+              <li><a href="#speakers" className="hover:text-[#D93829] transition-colors">Hôte</a></li>
+              <li><a href="#events" className="hover:text-[#D93829] transition-colors">Events</a></li>
+              <li><a href="#contact-us" className="hover:text-[#D93829] transition-colors">Contact Us</a></li>
             </ul>
           </div>
 
-          {/* Colonne 3 : Horaires */}
+          {/* Colonne 3 : Latest Events */}
           <div className="space-y-3">
-            <h5 className="font-bold text-sm text-[#1B1C57]">Horaires Studio</h5>
-            <ul className="space-y-1.5 text-xs">
-              <li>Mardi - Vendredi : 14h - 19h</li>
-              <li>Samedi & Dimanche : 10h - 18h</li>
-              <li>Lundi : Fermé (cuissons d&apos;atelier)</li>
+            <h5 className="font-bold text-sm text-[#121244]">Latest Events</h5>
+            <ul className="space-y-3 text-xs text-gray-600">
+              <li className="flex items-start gap-2.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#121244] mt-1 shrink-0" />
+                <div>
+                  <span className="font-bold text-[#121244] block">2024 December</span>
+                  <span className="text-gray-500">New Yark City Conference</span>
+                </div>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#121244] mt-1 shrink-0" />
+                <div>
+                  <span className="font-bold text-[#121244] block">2024 September</span>
+                  <span className="text-gray-500">California City Conference</span>
+                </div>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#121244] mt-1 shrink-0" />
+                <div>
+                  <span className="font-bold text-[#121244] block">2024 September</span>
+                  <span className="text-gray-500">Australia Conference</span>
+                </div>
+              </li>
             </ul>
           </div>
 
-          {/* Colonne 4 : Réseaux & Infos */}
+          {/* Colonne 4 : Instagram */}
           <div className="space-y-3">
-            <h5 className="font-bold text-sm text-[#1B1C57]">Instagram</h5>
-            <p className="text-xs text-[#64748B]">
-              Suivez @jade.ceramique pour découvrir les sorties de four et les créations des participants.
+            <h5 className="font-bold text-sm text-[#121244]">Instagram</h5>
+            <p className="text-xs text-gray-500 leading-relaxed">
+              Follow our Instagram page for live stories, speaker moments, and upcoming session reveals.
             </p>
           </div>
         </div>
 
-        {/* Barre Inférieure avec lien discret vers l'administration */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#64748B]">
-          <p>© {new Date().getFullYear()} Jade Workshop. Tous droits réservés.</p>
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-8 text-center text-xs text-gray-500 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p>Copyright © All Rights Reserved</p>
           <div className="flex items-center gap-4">
-            <a href="#ateliers" className="hover:text-[#1B1C57] transition-colors">Réserver une session</a>
+            <a href="#events" className="hover:text-[#121244] transition-colors">Book Now</a>
             <span>•</span>
-            <Link href="/admin" className="hover:text-[#1B1C57] transition-colors opacity-60 hover:opacity-100">
-              Espace Studio
+            <Link href="/admin" className="hover:text-[#121244] transition-colors opacity-50 hover:opacity-100">
+              Admin Access
             </Link>
           </div>
         </div>

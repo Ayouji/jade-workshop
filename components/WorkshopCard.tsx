@@ -48,8 +48,8 @@ export function WorkshopCard({ workshop, onBook }: WorkshopCardProps) {
   const formattedDate = formatFrenchDate(workshop.date);
 
   return (
-    <article className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-gray-100/90 shadow-sm hover:shadow-xl hover:border-gray-200/80 transition-all duration-300">
-      {/* 1. Image de couverture avec badge de disponibilité */}
+    <article className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:border-gray-200 transition-all duration-300">
+      {/* 1. Image de couverture */}
       <div className="relative h-60 w-full overflow-hidden bg-gray-100">
         {workshop.image_url ? (
           <Image
@@ -60,18 +60,17 @@ export function WorkshopCard({ workshop, onBook }: WorkshopCardProps) {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#F8F9FD] to-gray-200 text-[#1B1C57]/40">
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#F8F9FD] to-gray-200 text-[#121244]/40">
             <Sparkles className="w-10 h-10 opacity-60" />
           </div>
         )}
 
-        {/* Dégradé subtil pour la lisibilité */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none" />
 
-        {/* Badge de disponibilité en haut à droite */}
+        {/* Badge disponibilité */}
         <div className="absolute top-4 right-4 z-10">
           {isSoldOut ? (
-            <span className="px-3.5 py-1.5 bg-[#1B1C57]/90 backdrop-blur-md text-white text-xs font-bold rounded-full tracking-wide shadow-sm flex items-center gap-1.5">
+            <span className="px-3.5 py-1.5 bg-[#121244]/90 backdrop-blur-md text-white text-xs font-bold rounded-full tracking-wide shadow-sm flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-red-400" />
               Complet
             </span>
@@ -79,20 +78,20 @@ export function WorkshopCard({ workshop, onBook }: WorkshopCardProps) {
             <span className="px-3.5 py-1.5 bg-[#D93829] text-white text-xs font-bold rounded-full shadow-md flex items-center gap-1.5 animate-pulse">
               <span className="w-2 h-2 rounded-full bg-white" />
               {workshop.remaining_seats === 1
-                ? 'Dernière place disponible !'
+                ? 'Dernière place !'
                 : `Dernières ${workshop.remaining_seats} places !`}
             </span>
           ) : (
             <span className="px-3.5 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-full shadow-md backdrop-blur-sm flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-white" />
-              {workshop.remaining_seats} places disponibles
+              {workshop.remaining_seats} places libres
             </span>
           )}
         </div>
 
-        {/* Badge de catégorie artisanal */}
+        {/* Tag discret */}
         <div className="absolute bottom-3 left-4 z-10">
-          <span className="px-3 py-1 bg-white/90 backdrop-blur-md text-[#1B1C57] text-[11px] font-bold rounded-full shadow-xs">
+          <span className="px-3 py-1 bg-white/95 backdrop-blur-md text-[#121244] text-[11px] font-bold rounded-full shadow-xs">
             Atelier Artisanal
           </span>
         </div>
@@ -100,33 +99,33 @@ export function WorkshopCard({ workshop, onBook }: WorkshopCardProps) {
 
       {/* 2. Contenu textuel */}
       <div className="flex flex-col flex-1 p-6 sm:p-7">
-        {/* Date et Créneau horaire */}
+        {/* Date & Heure */}
         <div className="flex flex-wrap items-center gap-2.5 text-xs font-semibold text-[#64748B] mb-3">
           <div className="flex items-center gap-1.5 text-[#D93829]">
             <Calendar className="w-4 h-4 shrink-0" />
             <span>{formattedDate}</span>
           </div>
           <span className="text-gray-300">•</span>
-          <div className="flex items-center gap-1.5 text-[#1B1C57]">
+          <div className="flex items-center gap-1.5 text-[#121244]">
             <Clock className="w-4 h-4 shrink-0" />
             <span>{workshop.start_time} - {workshop.end_time}</span>
           </div>
         </div>
 
         {/* Titre */}
-        <h3 className="text-xl font-bold text-[#1B1C57] leading-snug mb-2.5 group-hover:text-[#D93829] transition-colors line-clamp-1">
+        <h3 className="text-xl font-bold text-[#121244] leading-snug mb-2.5 group-hover:text-[#D93829] transition-colors line-clamp-1">
           {workshop.title}
         </h3>
 
-        {/* Description courte (2 lignes max) */}
+        {/* Description */}
         <p className="text-sm text-[#64748B] leading-relaxed line-clamp-2 mb-6">
           {workshop.description}
         </p>
 
-        {/* Footer de la carte avec Capacité & Bouton CTA */}
+        {/* Footer */}
         <div className="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between gap-3">
           <div className="flex items-center gap-1.5 text-xs text-[#64748B] font-medium">
-            <Users className="w-4 h-4 text-[#1B1C57]/70" />
+            <Users className="w-4 h-4 text-[#121244]/70" />
             <span>Capacité : {workshop.capacity} pers.</span>
           </div>
 
@@ -137,7 +136,7 @@ export function WorkshopCard({ workshop, onBook }: WorkshopCardProps) {
             className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold tracking-wide transition-all shadow-sm ${
               isSoldOut
                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200'
-                : 'bg-[#1B1C57] hover:bg-[#252775] text-white hover:shadow-md hover:scale-[1.03] active:scale-[0.98]'
+                : 'bg-[#121244] hover:bg-[#1B1C57] text-white hover:shadow-md hover:scale-[1.03] active:scale-[0.98]'
             }`}
           >
             <span>{isSoldOut ? 'Complet' : 'Réserver ma place'}</span>
