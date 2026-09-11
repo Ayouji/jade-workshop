@@ -1,41 +1,39 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cream: #FDFBF7;
-  --color-warm-50: #FDFBF7;
-  --color-warm-100: #F7F3EC;
-  --color-warm-200: #EFE8DD;
-  --color-warm-300: #E2D7C7;
+  --color-cream: #FBFBFA;
+  --color-cream-card: #FFFFFF;
+  --color-cream-muted: #F3F4EF;
+  
+  --color-forest: #1B4332;
+  --color-forest-hover: #2D6A4F;
+  --color-forest-dark: #081C15;
+  --color-forest-light: #E8F5E9;
+  
+  --color-sage: #52B788;
+  --color-sage-hover: #40916C;
+  --color-sage-light: #D8F3DC;
+  --color-sage-50: #F2FAF5;
 
-  --color-terracotta: #C86D51;
-  --color-terracotta-hover: #B55D42;
-  --color-terracotta-light: #F8ECE8;
-  --color-terracotta-50: #FAF2EE;
-  --color-terracotta-100: #F5E4DC;
-  --color-terracotta-500: #C86D51;
-  --color-terracotta-600: #B55D42;
-  --color-terracotta-700: #944730;
+  --color-terracotta: #D93829;
+  --color-terracotta-hover: #B82C1E;
 
-  --color-sage: #8A9A86;
-  --color-sage-hover: #778873;
-  --color-sage-light: #F0F3EF;
-  --color-sage-50: #F4F7F3;
-  --color-sage-100: #E7ECE6;
-  --color-sage-500: #8A9A86;
-  --color-sage-600: #778873;
-  --color-sage-700: #5F6F5B;
-
-  --color-slate-dark: #2D3748;
+  --color-slate-900: #0F172A;
+  --color-slate-800: #1E293B;
+  --color-slate-700: #334155;
+  --color-slate-600: #475569;
+  --color-slate-500: #64748B;
 }
 
 :root {
-  --background: #F8F9FD;
-  --foreground: #121244;
+  --background: #FBFBFA;
+  --foreground: #0F172A;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-poppins), 'Poppins', sans-serif;
+  font-family: var(--font-poppins), 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
 }

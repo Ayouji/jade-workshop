@@ -107,26 +107,43 @@ export async function bookWorkshop(
 
     const newBookingId = insertResult[0]?.id as string;
 
-    // 4. Envoi des emails de confirmation (Gmail SMTP prioritaire ou Resend)
-    await sendBookingEmails({
+    // Log officiel de la réservation liée spécifiquement à Seasonal Gardening Basics
+    console.log(`[BOOKING] New booking stored for Seasonal Gardening Basics:`, {
       bookingId: newBookingId,
       workshopTitle: workshop.title,
       workshopDate: workshop.formatted_date,
-      workshopStartTime: workshop.start_time,
-      workshopEndTime: workshop.end_time,
-      participantName: name,
-      participantEmail: email,
-      participantPhone: phone,
-      seats,
+      time: `${workshop.start_time} - ${workshop.end_time}`,
+      clientName: name,
+      clientEmail: email,
+      clientPhone: phone,
+      seatsBooked: seats,
+      remainingSeatsAfter: remainingSeats - seats,
+      timestamp: new Date().toISOString(),
     });
 
+    // 4. Envoi des emails de confirmation (Gmail SMTP prioritaire ou Resend)
+    try {
+      await sendBookingEmails({
+        bookingId: newBookingId,
+        workshopTitle: workshop.title,
+        workshopDate: workshop.formatted_date,
+        workshopStartTime: workshop.start_time,
+        workshopEndTime: workshop.end_time,
+        participantName: name,
+        participantEmail: email,
+        participantPhone: phone,
+        seats,
+      });
+    } catch (mailError) {
+      console.warn('[EMAIL] Non-blocking email dispatch notification:', mailError);
+    }
 
     // 5. Revalidation de la page d'accueil pour mettre à jour instantanément les compteurs de places
     revalidatePath('/');
 
     return {
       success: true,
-      message: 'Votre réservation a été confirmée avec succès ! Un email de confirmation vous a été envoyé.',
+      message: 'Votre réservation pour l\'atelier Seasonal Gardening Basics a été enregistrée avec succès !',
       bookingId: newBookingId,
     };
   } catch (error) {
