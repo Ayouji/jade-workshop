@@ -106,6 +106,27 @@ export function BookingModal({
     }
   };
 
+  // Mois actif calculé dynamiquement
+  const activeMonthLabel = React.useMemo(() => {
+    if (availableWorkshops.length === 0) return 'Upcoming Dates';
+    try {
+      const dates = availableWorkshops.map((w) => {
+        const [year, month, day] = w.date.split('-').map(Number);
+        return new Date(year, month - 1, day);
+      });
+      const months = Array.from(
+        new Set(
+          dates.map((d) =>
+            new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(d)
+          )
+        )
+      );
+      return months.join(' / ');
+    } catch {
+      return 'Upcoming Dates';
+    }
+  }, [availableWorkshops]);
+
   return (
     <div
       role="dialog"
@@ -137,10 +158,10 @@ export function BookingModal({
           </div>
 
           <h2 id="booking-modal-title" className="text-xl sm:text-2xl font-black text-[#0F172A] leading-tight pr-10">
-            Book Your Spot for October
+            Book Your Spot
           </h2>
           <p className="text-xs text-slate-600 mt-1">
-            Free community session hosted by Jade Belstead • Every Saturday morning
+            Free community session hosted by Jade Belstead • Kingston, NY
           </p>
 
           <div className="flex flex-wrap items-center gap-2 mt-3 text-xs text-slate-600">
@@ -205,15 +226,15 @@ export function BookingModal({
                 </div>
               )}
 
-              {/* Sélecteur de date du Samedi en Octobre */}
+              {/* Sélecteur de date dynamique */}
               <div>
                 <label className="block text-xs font-bold text-slate-900 mb-1.5 flex items-center justify-between">
                   <span className="flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5 text-[#1B4332]" />
-                    Select Saturday Date Slot <span className="text-red-500">*</span>
+                    Select Workshop Date Slot <span className="text-red-500">*</span>
                   </span>
                   <span className="text-[11px] text-[#52B788] font-semibold">
-                    October 2026
+                    {activeMonthLabel}
                   </span>
                 </label>
 

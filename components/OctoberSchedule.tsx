@@ -8,6 +8,7 @@ import {
   Clock,
   Users,
   ArrowRight,
+  Sprout,
 } from 'lucide-react';
 
 interface OctoberScheduleProps {
@@ -17,7 +18,7 @@ interface OctoberScheduleProps {
 export function OctoberSchedule({ workshops }: OctoberScheduleProps) {
   const [selectedWorkshop, setSelectedWorkshop] = useState<WorkshopWithAvailability | null>(null);
 
-  const formatDateShort = (dateStr: string) => {
+  const formatDateLabel = (dateStr: string) => {
     try {
       const [year, month, day] = dateStr.split('-').map(Number);
       const d = new Date(year, month - 1, day);
@@ -31,9 +32,36 @@ export function OctoberSchedule({ workshops }: OctoberScheduleProps) {
     }
   };
 
+  // Empty state if all sessions have passed or no workshops currently in database
+  if (!workshops || workshops.length === 0) {
+    return (
+      <div className="w-full max-w-2xl mx-auto text-center py-12 sm:py-16 px-6 bg-white rounded-3xl border border-gray-100 shadow-sm space-y-4">
+        <div className="w-14 h-14 rounded-full bg-[#1B4332]/10 text-[#1B4332] flex items-center justify-center mx-auto">
+          <Sprout className="w-7 h-7 text-[#52B788]" />
+        </div>
+        <h3 className="text-xl sm:text-2xl font-bold text-[#0F172A]">
+          Next Workshop Series Coming Soon
+        </h3>
+        <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+          Current sessions have concluded. Jade is scheduling upcoming seasonal gardening workshops.
+          Sign up below to receive first priority when new spots open.
+        </p>
+        <div className="pt-2">
+          <a
+            href="#contact-us"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#1B4332] hover:bg-[#2D6A4F] text-white text-xs sm:text-sm font-bold rounded-full transition-all shadow-sm"
+          >
+            <span>Notify Me of New Dates</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6 sm:space-y-8 w-full">
-      {/* 1. Planning Timeline des 5 Samedis d'Octobre */}
+      {/* Timeline List of Sessions */}
       <div className="space-y-4 sm:space-y-5">
         {workshops.map((ws, index) => {
           const isSoldOut = ws.remaining_seats <= 0;
@@ -42,14 +70,14 @@ export function OctoberSchedule({ workshops }: OctoberScheduleProps) {
               key={ws.id}
               className="bg-white p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-gray-100/90 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 sm:gap-6 hover:shadow-md hover:border-[#52B788]/40 transition-all group"
             >
-              {/* Date, Week Badge & Time (Vertical on mobile, aligned on desktop) */}
+              {/* Date & Week Metadata */}
               <div className="space-y-1.5 md:w-1/4 shrink-0">
                 <span className="inline-block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#52B788]">
-                  Week 0{index + 1} • Saturday
+                  Session 0{index + 1}
                 </span>
                 <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-[#1B4332] shrink-0" />
-                  <span>{formatDateShort(ws.date)}</span>
+                  <span>{formatDateLabel(ws.date)}</span>
                 </h3>
                 <div className="flex items-center gap-2 text-xs text-slate-500 font-medium">
                   <Clock className="w-3.5 h-3.5 text-[#1B4332] shrink-0" />
@@ -94,7 +122,7 @@ export function OctoberSchedule({ workshops }: OctoberScheduleProps) {
                   onClick={() => setSelectedWorkshop(ws)}
                   disabled={isSoldOut}
                   aria-label={`Book spot for ${ws.title}`}
-                  className={`w-full md:w-auto min-h-[44px] px-6 py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold transition-all shadow-sm flex items-center justify-center gap-2 ${
+                  className={`w-full md:w-auto min-h-[44px] px-6 py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer ${
                     isSoldOut
                       ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200'
                       : 'bg-[#1B4332] hover:bg-[#2D6A4F] text-white hover:shadow hover:scale-[1.02] active:scale-[0.98]'

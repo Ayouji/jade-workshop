@@ -96,12 +96,6 @@ async function loadWorkshops(): Promise<WorkshopWithAvailability[]> {
       return DEMO_WORKSHOPS;
     }
     const workshops = await getWorkshopsWithAvailability();
-    const gardeningWorkshops = workshops.filter((w) =>
-      w.title.toLowerCase().includes('seasonal gardening')
-    );
-    if (gardeningWorkshops.length > 0) {
-      return gardeningWorkshops;
-    }
     return workshops.length > 0 ? workshops : DEMO_WORKSHOPS;
   } catch (error) {
     console.warn('Chargement des ateliers de démonstration suite à une exception :', error);
@@ -109,8 +103,82 @@ async function loadWorkshops(): Promise<WorkshopWithAvailability[]> {
   }
 }
 
+/**
+ * Helper dynamique calculant le mois et le rythme des ateliers actifs
+ */
+function getScheduleMetadata(workshops: WorkshopWithAvailability[]) {
+  if (!workshops || workshops.length === 0) {
+    return {
+      monthLabel: 'Upcoming',
+      cadenceText: 'New Seasonal Sessions Coming Soon',
+      sectionTitle: 'Upcoming Workshop Schedule',
+      heroCtaText: 'Join Waiting List',
+      hasWorkshops: false,
+    };
+  }
+
+  // Mois uniques parmi les ateliers disponibles
+  const months = Array.from(
+    new Set(
+      workshops.map((w) => {
+        try {
+          const [year, month, day] = w.date.split('-').map(Number);
+          const d = new Date(year, month - 1, day);
+          return new Intl.DateTimeFormat('en-US', { month: 'long' }).format(d);
+        } catch {
+          return '';
+        }
+      }).filter(Boolean)
+    )
+  );
+
+  // Vérifie si toutes les sessions se tiennent le samedi (Day 6)
+  const allSaturdays = workshops.every((w) => {
+    try {
+      const [year, month, day] = w.date.split('-').map(Number);
+      const d = new Date(year, month - 1, day);
+      return d.getDay() === 6;
+    } catch {
+      return false;
+    }
+  });
+
+  const monthLabel = months.length === 1 ? months[0] : months.join(' & ');
+  const cadenceText = allSaturdays
+    ? `Every Saturday morning in ${monthLabel}`
+    : `Upcoming Sessions in ${monthLabel}`;
+
+  const sectionTitle = allSaturdays
+    ? `Every Saturday morning in ${monthLabel}`
+    : `Upcoming Workshop Schedule`;
+
+  const heroCtaText = months.length === 1 ? `Book Your Spot for ${months[0]}` : 'Book Your Spot';
+
+  return {
+    monthLabel,
+    cadenceText,
+    sectionTitle,
+    heroCtaText,
+    hasWorkshops: true,
+  };
+}
+
+function formatDateShort(dateStr: string): string {
+  try {
+    const [year, month, day] = dateStr.split('-').map(Number);
+    const d = new Date(year, month - 1, day);
+    return new Intl.DateTimeFormat('en-US', {
+      month: 'short',
+      day: 'numeric',
+    }).format(d);
+  } catch {
+    return dateStr;
+  }
+}
+
 export default async function HomePage() {
   const workshops = await loadWorkshops();
+  const scheduleMeta = getScheduleMetadata(workshops);
 
   return (
     <div className="min-h-screen bg-[#FBFBFA] text-[#0F172A] font-sans antialiased overflow-x-hidden selection:bg-[#1B4332] selection:text-white">
@@ -121,20 +189,20 @@ export default async function HomePage() {
 
       <main className="space-y-16 sm:space-y-24 md:space-y-32">
         {/* ============================================================================== */}
-        {/* 2. HERO SECTION - MOBILE-FIRST LAYOUT                                          */}
+        {/* 2. HERO SECTION - MOBILE-FIRST & DYNAMIC CADENCE                               */}
         {/* ============================================================================== */}
         <section className="relative pt-6 sm:pt-10 md:pt-16 pb-4 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
               {/* Left Column: Stack vertically on mobile, left-align on lg */}
               <div className="lg:col-span-6 space-y-5 sm:space-y-6 text-center lg:text-left flex flex-col items-center lg:items-start">
-                {/* Cadence Badge */}
+                {/* Cadence Badge Dynamique */}
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1B4332]/10 text-[#1B4332] text-xs font-bold uppercase tracking-wider">
                   <Calendar className="w-3.5 h-3.5 text-[#52B788] shrink-0" />
-                  <span>Every Saturday morning in October</span>
+                  <span>{scheduleMeta.cadenceText}</span>
                 </div>
 
-                {/* Title: Fluid scaling from mobile (text-3xl) to desktop (lg:text-[54px]) */}
+                {/* Title */}
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-black text-[#0F172A] tracking-tight leading-[1.15]">
                   Seasonal Gardening Basics
                 </h1>
@@ -162,7 +230,11 @@ export default async function HomePage() {
 
                 {/* Primary & Secondary Call to Actions */}
                 <div className="pt-2 w-full">
-                  <HeroBookingCta workshops={workshops} />
+                  <HeroBookingCta
+                    workshops={workshops}
+                    ctaLabel={scheduleMeta.heroCtaText}
+                    scheduleLabel="View Schedule"
+                  />
                 </div>
               </div>
 
@@ -194,19 +266,19 @@ export default async function HomePage() {
         </section>
 
         {/* ============================================================================== */}
-        {/* 3. UPPER ACTIVE LIST SCHEDULE - WHAT TO BOOK                                   */}
+        {/* 3. UPPER ACTIVE LIST SCHEDULE - DYNAMIC & ADAPTIVE                             */}
         {/* ============================================================================== */}
         <section id="schedule" className="py-8 sm:py-12 border-t border-gray-200/60 scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 space-y-8 sm:space-y-12">
-            {/* Header: Centered on mobile, split on md */}
+            {/* Header: Adapté dynamiquement */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 border-b border-gray-200/80 pb-6 text-left">
               <div className="space-y-2 max-w-xl">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1B4332]/10 text-[#1B4332] text-xs font-bold uppercase tracking-wider">
                   <Calendar className="w-3.5 h-3.5 text-[#52B788] shrink-0" />
-                  <span>Official October Schedule</span>
+                  <span>Official {scheduleMeta.monthLabel} Schedule</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0F172A] tracking-tight leading-tight">
-                  Every Saturday morning in October
+                  {scheduleMeta.sectionTitle}
                 </h2>
               </div>
               <div className="max-w-md">
@@ -399,7 +471,7 @@ export default async function HomePage() {
                     href="#schedule"
                     className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center px-8 py-3.5 bg-[#1B4332] hover:bg-[#2D6A4F] text-white font-bold rounded-full text-xs sm:text-sm transition-all shadow-md"
                   >
-                    View October Workshop Sessions
+                    View {scheduleMeta.monthLabel} Workshop Sessions
                   </a>
                 </div>
               </div>
@@ -463,7 +535,7 @@ export default async function HomePage() {
                 Connect with Jade
               </h2>
               <p className="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed">
-                Have questions regarding the October sessions, accessibility at the garden, or private group bookings? Drop us a message anytime.
+                Have questions regarding upcoming sessions, accessibility at the garden, or private group bookings? Drop us a message anytime.
               </p>
             </div>
 
@@ -556,7 +628,7 @@ export default async function HomePage() {
               </span>
             </div>
             <p className="text-xs text-slate-500 leading-relaxed max-w-xs">
-              Learn to plant and nurture your own herbs and vegetables. Community workshops hosted by Jade Belstead every Saturday morning in October.
+              Learn to plant and nurture your own herbs and vegetables. Community workshops hosted by Jade Belstead.
             </p>
 
             <div className="flex items-center gap-3 pt-1">
@@ -586,37 +658,25 @@ export default async function HomePage() {
             <h4 className="font-bold text-sm text-[#0F172A]">Workshop Navigation</h4>
             <ul className="space-y-2 text-xs text-slate-600">
               <li><a href="/" className="hover:text-[#1B4332] transition-colors py-1 inline-block">Home</a></li>
-              <li><a href="#schedule" className="hover:text-[#1B4332] transition-colors py-1 inline-block">October Schedule</a></li>
+              <li><a href="#schedule" className="hover:text-[#1B4332] transition-colors py-1 inline-block">{scheduleMeta.monthLabel} Schedule</a></li>
               <li><a href="#experience" className="hover:text-[#1B4332] transition-colors py-1 inline-block">Your Experience</a></li>
               <li><a href="#instructor-impact" className="hover:text-[#1B4332] transition-colors py-1 inline-block">Instructor &amp; Impact</a></li>
               <li><a href="#contact-us" className="hover:text-[#1B4332] transition-colors py-1 inline-block">Contact &amp; Location</a></li>
             </ul>
           </div>
 
-          {/* Col 3 */}
+          {/* Col 3: Dynamic Upcoming Sessions from Database */}
           <div className="space-y-2.5 sm:space-y-3">
-            <h4 className="font-bold text-sm text-[#0F172A]">October Sessions</h4>
+            <h4 className="font-bold text-sm text-[#0F172A]">{scheduleMeta.monthLabel} Sessions</h4>
             <ul className="space-y-2 text-xs text-slate-600">
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#52B788] shrink-0" />
-                <span>Oct 3: Herbs &amp; Seed Starting</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#52B788] shrink-0" />
-                <span>Oct 10: Soil Health &amp; Compost</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#52B788] shrink-0" />
-                <span>Oct 17: Autumn Vegetables</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#52B788] shrink-0" />
-                <span>Oct 24: Pest Control &amp; Pruning</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#52B788] shrink-0" />
-                <span>Oct 31: Winter Prep &amp; Harvesting</span>
-              </li>
+              {workshops.slice(0, 5).map((ws) => (
+                <li key={ws.id} className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#52B788] shrink-0" />
+                  <span className="truncate">
+                    {formatDateShort(ws.date)}: {ws.title.replace('Seasonal Gardening Basics - ', '')}
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
 
