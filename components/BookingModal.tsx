@@ -90,7 +90,7 @@ export function BookingModal({
   };
 
   /**
-   * Formate une date YYYY-MM-DD en texte clair (ex: Samedi 3 Octobre)
+   * Formate une date YYYY-MM-DD en texte clair (ex: Sat, Oct 3)
    */
   const formatDateLabel = (dateStr: string) => {
     try {
@@ -111,32 +111,32 @@ export function BookingModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="booking-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200 overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200 overflow-y-auto"
       onClick={(e) => {
         if (e.target === e.currentTarget && !isPending) {
           onClose();
         }
       }}
     >
-      <div className="relative w-full max-w-lg bg-[#FFFFFF] rounded-3xl shadow-2xl border border-gray-100 overflow-hidden text-slate-900 my-8">
+      <div className="relative w-full max-w-lg bg-[#FFFFFF] rounded-2xl sm:rounded-3xl shadow-2xl border border-gray-100 overflow-hidden text-slate-900 my-auto max-h-[92vh] flex flex-col">
         {/* Header de la Modale */}
-        <div className="relative bg-[#F4F7F3] p-6 sm:p-7 border-b border-gray-100">
+        <div className="relative bg-[#F4F7F3] p-5 sm:p-6 border-b border-gray-100 shrink-0">
           <button
             type="button"
             onClick={onClose}
             disabled={isPending}
-            className="absolute top-5 right-5 text-slate-500 hover:text-slate-900 p-2 rounded-full hover:bg-white/80 transition-colors"
+            className="absolute top-4 right-4 text-slate-500 hover:text-slate-900 w-11 h-11 flex items-center justify-center rounded-full hover:bg-white/80 transition-colors focus:outline-none focus:ring-2 focus:ring-[#1B4332]/20"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
           </button>
 
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1B4332]/10 text-[#1B4332] text-xs font-bold uppercase tracking-wider mb-2.5">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1B4332]/10 text-[#1B4332] text-xs font-bold uppercase tracking-wider mb-2">
             <Sprout className="w-3.5 h-3.5 text-[#52B788]" />
             <span>Seasonal Gardening Basics</span>
           </div>
 
-          <h2 id="booking-modal-title" className="text-xl sm:text-2xl font-black text-[#0F172A] leading-tight pr-8">
+          <h2 id="booking-modal-title" className="text-xl sm:text-2xl font-black text-[#0F172A] leading-tight pr-10">
             Book Your Spot for October
           </h2>
           <p className="text-xs text-slate-600 mt-1">
@@ -146,17 +146,17 @@ export function BookingModal({
           <div className="flex flex-wrap items-center gap-2 mt-3 text-xs text-slate-600">
             <span className="inline-flex items-center gap-1.5 font-semibold bg-white px-3 py-1 rounded-full border border-gray-200/80 shadow-xs">
               <Clock className="w-3.5 h-3.5 text-[#1B4332]" />
-              {currentWorkshop.start_time} - {currentWorkshop.end_time}
+              {currentWorkshop.start_time} – {currentWorkshop.end_time}
             </span>
             <span className="inline-flex items-center gap-1.5 font-semibold bg-white px-3 py-1 rounded-full border border-gray-200/80 shadow-xs">
               <MapPin className="w-3.5 h-3.5 text-[#52B788]" />
-              Community Garden, Kingston
+              Kingston Community Garden
             </span>
           </div>
         </div>
 
-        {/* Corps de la Modale */}
-        <div className="p-6 sm:p-7 max-h-[80vh] overflow-y-auto">
+        {/* Corps de la Modale scrollable */}
+        <div className="p-5 sm:p-6 overflow-y-auto flex-1">
           {formState?.success ? (
             /* Écran de Succès */
             <div className="py-6 text-center space-y-4">
@@ -165,10 +165,10 @@ export function BookingModal({
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-[#0F172A]">
+                <h3 className="text-xl sm:text-2xl font-bold text-[#0F172A]">
                   Reservation Confirmed!
                 </h3>
-                <p className="text-sm text-slate-600 mt-2 max-w-sm mx-auto leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-sm mx-auto leading-relaxed">
                   Your spot for <strong>Seasonal Gardening Basics</strong> has been booked. A confirmation email with all practical details has been sent to you.
                 </p>
               </div>
@@ -177,7 +177,7 @@ export function BookingModal({
                 <p className="font-bold text-[#0F172A]">Session Summary:</p>
                 <p className="text-slate-700">• Workshop: {currentWorkshop.title}</p>
                 <p className="text-slate-700">
-                  • Date & Time: {formatDateLabel(currentWorkshop.date)} ({currentWorkshop.start_time} - {currentWorkshop.end_time})
+                  • Date &amp; Time: {formatDateLabel(currentWorkshop.date)} ({currentWorkshop.start_time} – {currentWorkshop.end_time})
                 </p>
                 <p className="text-slate-700">
                   • Reserved Seats: {selectedSeats} ticket{selectedSeats > 1 ? 's' : ''} (Free)
@@ -189,9 +189,9 @@ export function BookingModal({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="w-full py-3.5 px-5 bg-[#1B4332] hover:bg-[#2D6A4F] text-white font-bold rounded-2xl transition-all shadow-md text-sm"
+                  className="w-full min-h-[48px] py-3.5 px-5 bg-[#1B4332] hover:bg-[#2D6A4F] text-white font-bold rounded-xl sm:rounded-2xl transition-all shadow-md text-sm cursor-pointer"
                 >
-                  Close & Back to Workshops
+                  Close &amp; Back to Workshops
                 </button>
               </div>
             </div>
@@ -228,7 +228,7 @@ export function BookingModal({
                         onClick={() => setSelectedWorkshopId(ws.id)}
                         disabled={wsSoldOut}
                         aria-pressed={isSelected}
-                        className={`p-2.5 text-left rounded-2xl border transition-all relative ${
+                        className={`min-h-[48px] p-2.5 text-left rounded-xl sm:rounded-2xl border transition-all relative ${
                           isSelected
                             ? 'bg-[#1B4332] text-white border-[#1B4332] shadow-sm'
                             : wsSoldOut
@@ -280,7 +280,7 @@ export function BookingModal({
                     required
                     aria-label="Full Name"
                     placeholder="e.g. Eleanor Vance"
-                    className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-2xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1B4332]/20 focus:border-[#1B4332] transition-all"
+                    className="w-full min-h-[44px] pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl sm:rounded-2xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1B4332]/20 focus:border-[#1B4332] transition-all"
                   />
                 </div>
               </div>
@@ -302,7 +302,7 @@ export function BookingModal({
                     required
                     aria-label="Email Address"
                     placeholder="e.g. eleanor@example.com"
-                    className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-2xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1B4332]/20 focus:border-[#1B4332] transition-all"
+                    className="w-full min-h-[44px] pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl sm:rounded-2xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1B4332]/20 focus:border-[#1B4332] transition-all"
                   />
                 </div>
               </div>
@@ -324,7 +324,7 @@ export function BookingModal({
                     required
                     aria-label="Phone Number"
                     placeholder="e.g. (555) 234-5678"
-                    className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-2xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1B4332]/20 focus:border-[#1B4332] transition-all"
+                    className="w-full min-h-[44px] pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl sm:rounded-2xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1B4332]/20 focus:border-[#1B4332] transition-all"
                   />
                 </div>
               </div>
@@ -341,7 +341,7 @@ export function BookingModal({
                   </span>
                 </label>
 
-                <div className="grid grid-cols-3 gap-2.5">
+                <div className="grid grid-cols-3 gap-2">
                   {availableSeatOptions.map((num) => {
                     const isSelected = selectedSeats === num;
                     return (
@@ -350,7 +350,7 @@ export function BookingModal({
                         type="button"
                         onClick={() => setSelectedSeats(num)}
                         aria-pressed={isSelected}
-                        className={`py-2.5 px-3 text-xs font-bold rounded-2xl border transition-all ${
+                        className={`min-h-[44px] py-2.5 px-3 text-xs font-bold rounded-xl sm:rounded-2xl border transition-all ${
                           isSelected
                             ? 'bg-[#1B4332] text-white border-[#1B4332] shadow-sm scale-[1.02]'
                             : 'bg-white text-slate-800 border-gray-200 hover:border-[#1B4332]/40'
@@ -374,7 +374,7 @@ export function BookingModal({
                 <button
                   type="submit"
                   disabled={isPending || isSoldOut}
-                  className="w-full py-3.5 px-5 bg-[#1B4332] hover:bg-[#2D6A4F] disabled:opacity-60 text-white font-bold rounded-2xl transition-all shadow-md flex items-center justify-center gap-2 text-sm"
+                  className="w-full min-h-[48px] py-3.5 px-5 bg-[#1B4332] hover:bg-[#2D6A4F] disabled:opacity-60 text-white font-bold rounded-xl sm:rounded-2xl transition-all shadow-md flex items-center justify-center gap-2 text-sm cursor-pointer"
                 >
                   {isPending ? (
                     <>
