@@ -2,17 +2,12 @@
 
 import React, { useState } from 'react';
 import { WorkshopWithAvailability } from '@/lib/db';
-import { WorkshopCard } from './WorkshopCard';
 import { BookingModal } from './BookingModal';
 import {
   Calendar,
   Clock,
-  MapPin,
-  Sprout,
   Users,
-  CheckCircle2,
   ArrowRight,
-  Sparkles,
 } from 'lucide-react';
 
 interface OctoberScheduleProps {
@@ -110,37 +105,6 @@ export function OctoberSchedule({ workshops }: OctoberScheduleProps) {
             </div>
           );
         })}
-      </div>
-
-      {/* 2. Visual Workshop Cards Grid */}
-      <div className="pt-6 border-t border-gray-200/60">
-        <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-[#52B788]">
-              October Workshop Catalog
-            </span>
-            <h4 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1">
-              Explore All 5 Saturday Topics
-            </h4>
-            <p className="text-xs sm:text-sm text-slate-600 mt-1">
-              Each session focuses on a specialized aspect of cool-season gardening and herb cultivation.
-            </p>
-          </div>
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#F4F7F3] text-[#1B4332] rounded-full text-xs font-bold border border-[#52B788]/30">
-            <Sprout className="w-4 h-4 text-[#52B788]" />
-            <span>Community Garden • 10 Spots/Session</span>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {workshops.map((workshop) => (
-            <WorkshopCard
-              key={workshop.id}
-              workshop={workshop}
-              onBook={(ws) => setSelectedWorkshop(ws)}
-            />
-          ))}
-        </div>
       </div>
 
       {/* Modale interactive de réservation */}

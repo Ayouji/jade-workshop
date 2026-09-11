@@ -13,15 +13,15 @@ import {
   Mail,
   ArrowRight,
   Play,
+  CheckCircle,
   CheckCircle2,
   Users,
   Award,
   Sprout,
   Leaf,
   Sun,
-  HeartHandshake,
   ShieldCheck,
-  Compass,
+  HeartHandshake,
 } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -148,14 +148,14 @@ export default async function HomePage() {
             <a href="/" className="hover:text-[#1B4332] transition-colors">
               Home
             </a>
-            <a href="#about-instructor" className="hover:text-[#1B4332] transition-colors">
-              About Jade
-            </a>
             <a href="#schedule" className="hover:text-[#1B4332] transition-colors">
               October Schedule
             </a>
-            <a href="#benefits" className="hover:text-[#1B4332] transition-colors">
-              Highlights
+            <a href="#experience" className="hover:text-[#1B4332] transition-colors">
+              Experience
+            </a>
+            <a href="#instructor-impact" className="hover:text-[#1B4332] transition-colors">
+              Instructor & Impact
             </a>
             <a href="#contact-us" className="hover:text-[#1B4332] transition-colors">
               Contact
@@ -239,10 +239,136 @@ export default async function HomePage() {
         </section>
 
         {/* ============================================================================== */}
-        {/* 3. SECTION INSTRUCTOR & ABOUT - JADE BELSTEAD                                  */}
+        {/* 3. UPPER ACTIVE LIST SCHEDULE - WHAT TO BOOK (CORE INTERACTION)                */}
         {/* ============================================================================== */}
-        <section id="about-instructor" className="py-12 scroll-mt-20">
+        <section id="schedule" className="py-12 border-t border-gray-200/60 scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 space-y-12">
+            {/* Header du planning */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end border-b border-gray-200/80 pb-6">
+              <div className="lg:col-span-6 space-y-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1B4332]/10 text-[#1B4332] text-xs font-bold uppercase tracking-wider">
+                  <Calendar className="w-3.5 h-3.5 text-[#52B788]" />
+                  <span>Official October Schedule</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">
+                  Every Saturday morning in October
+                </h2>
+              </div>
+              <div className="lg:col-span-6">
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  Join Jade Belstead at the community greenhouse every Saturday from <strong>10:00 AM to 12:30 PM</strong>. Each session holds up to 10 participants to ensure personal coaching and plenty of hands-on planting.
+                </p>
+              </div>
+            </div>
+
+            {/* Upper Active List Schedule avec les 5 samedis d'octobre et modale de réservation */}
+            <OctoberSchedule workshops={workshops} />
+          </div>
+        </section>
+
+        {/* ============================================================================== */}
+        {/* 4. NEW STATIC SECTION: "YOUR WORKSHOP EXPERIENCE & WHAT YOU GET"              */}
+        {/* ============================================================================== */}
+        <section id="experience" className="py-16 border-t border-gray-200/60 bg-[#F4F7F3]/60 rounded-3xl scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-6 lg:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              {/* Colonne Gauche : Textes & Bullets officiels */}
+              <div className="lg:col-span-7 space-y-6">
+                {/* Sub-Header Requis */}
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1B4332]/10 text-[#1B4332] text-xs font-bold uppercase tracking-wider">
+                  <Sprout className="w-3.5 h-3.5 text-[#52B788]" />
+                  <span>A Foundation for Seasonal Success</span>
+                </div>
+
+                {/* Titre Requis */}
+                <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-[#0F172A] tracking-tight leading-tight">
+                  Your Workshop Experience &amp; What You Get
+                </h2>
+
+                {/* Main Body Text Requis */}
+                <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
+                  Your workshop journey is a complete experience, not a series of disconnected topics. We cover the full spectrum of successful seasonal gardening—from preparing your soil and starting seeds to mastering compost, natural pest control, and preparing for winter. Every Saturday, you will receive expert, personalized coaching with plenty of hands-on planting practice, ensuring you can confidently nurture your own herbs and vegetables all season long.
+                </p>
+
+                {/* Bulleted List of Key Value Propositions with CheckCircle */}
+                <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white border border-gray-100/90 shadow-xs">
+                    <CheckCircle className="w-5 h-5 text-[#52B788] shrink-0 mt-0.5" />
+                    <span className="text-xs sm:text-sm font-semibold text-slate-800">
+                      Full Lifecycle Coverage: Soil to Harvest
+                    </span>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white border border-gray-100/90 shadow-xs">
+                    <CheckCircle className="w-5 h-5 text-[#52B788] shrink-0 mt-0.5" />
+                    <span className="text-xs sm:text-sm font-semibold text-slate-800">
+                      Hands-On Seed Starting &amp; Container Skills
+                    </span>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white border border-gray-100/90 shadow-xs">
+                    <CheckCircle className="w-5 h-5 text-[#52B788] shrink-0 mt-0.5" />
+                    <span className="text-xs sm:text-sm font-semibold text-slate-800">
+                      Master Organic Composting for Thriving Soil
+                    </span>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white border border-gray-100/90 shadow-xs">
+                    <CheckCircle className="w-5 h-5 text-[#52B788] shrink-0 mt-0.5" />
+                    <span className="text-xs sm:text-sm font-semibold text-slate-800">
+                      Identify and Implement Natural Pest Control
+                    </span>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white border border-gray-100/90 shadow-xs">
+                    <CheckCircle className="w-5 h-5 text-[#52B788] shrink-0 mt-0.5" />
+                    <span className="text-xs sm:text-sm font-semibold text-slate-800">
+                      Essential Winter Prep &amp; Nurturing Advice
+                    </span>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white border border-gray-100/90 shadow-xs">
+                    <CheckCircle className="w-5 h-5 text-[#52B788] shrink-0 mt-0.5" />
+                    <span className="text-xs sm:text-sm font-semibold text-slate-800">
+                      Confident Herb and Vegetable Gardening
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Colonne Droite : Visuel Organique d'Accompagnement */}
+              <div className="lg:col-span-5 relative">
+                <div className="relative aspect-[4/3] sm:aspect-[4/5] rounded-[32px] overflow-hidden shadow-xl bg-white border-4 border-white">
+                  <Image
+                    src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1200&q=80"
+                    alt="Lush community garden bed with thriving herbs and vegetables"
+                    fill
+                    className="object-cover"
+                  />
+                  {/* Badge d'accompagnement */}
+                  <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-gray-100">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-[#1B4332] text-white flex items-center justify-center shrink-0">
+                        <Leaf className="w-5 h-5 text-[#52B788]" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold text-[#0F172A]">Real Dirt &amp; Practice</p>
+                        <p className="text-[11px] text-slate-500">Take home starter pots and seedlings from every session</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================================== */}
+        {/* 5. BOTTOM STATIC SECTION: "INSTRUCTOR & COMMUNITY IMPACT"                      */}
+        {/* ============================================================================== */}
+        <section id="instructor-impact" className="py-12 border-t border-gray-200/60 scroll-mt-20">
           <div className="max-w-7xl mx-auto px-6 lg:px-12 space-y-16">
+            {/* Bloc Profil Instructeur */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               {/* Photo de Jade Belstead avec Highlight Tag Flottant */}
               <div className="lg:col-span-5 relative">
@@ -274,7 +400,7 @@ export default async function HomePage() {
               {/* Contenu Profil & Bio Officielle */}
               <div className="lg:col-span-7 space-y-6 lg:pl-6">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#52B788]">
-                  About Your Instructor
+                  Instructor &amp; Community Impact
                 </span>
 
                 <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight leading-snug">
@@ -296,19 +422,19 @@ export default async function HomePage() {
                     <div className="w-5 h-5 rounded-full bg-[#1B4332] text-white flex items-center justify-center shrink-0">
                       <div className="w-2 h-2 rounded-full bg-[#52B788]" />
                     </div>
-                    <span>100% Organic & Permaculture-Inspired Methods</span>
+                    <span>100% Organic &amp; Permaculture-Inspired Methods</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm font-semibold text-[#0F172A]">
                     <div className="w-5 h-5 rounded-full bg-[#1B4332] text-white flex items-center justify-center shrink-0">
                       <div className="w-2 h-2 rounded-full bg-[#52B788]" />
                     </div>
-                    <span>Hands-On Soil, Seed Starting & Container Techniques</span>
+                    <span>Hands-On Soil, Seed Starting &amp; Container Techniques</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm font-semibold text-[#0F172A]">
                     <div className="w-5 h-5 rounded-full bg-[#1B4332] text-white flex items-center justify-center shrink-0">
                       <div className="w-2 h-2 rounded-full bg-[#52B788]" />
                     </div>
-                    <span>Inclusive Neighborhood Community & Ongoing Tips</span>
+                    <span>Inclusive Neighborhood Community &amp; Ongoing Tips</span>
                   </li>
                 </ul>
 
@@ -322,190 +448,45 @@ export default async function HomePage() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* ============================================================================== */}
-        {/* 4. SECTION "WHAT YOU WILL LEARN" - 4 CARTES ÉCO-RESPONSABLES                   */}
-        {/* ============================================================================== */}
-        <section id="benefits" className="py-12 border-t border-gray-200/60">
-          <div className="max-w-7xl mx-auto px-6 lg:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-              {/* Colonne Gauche : 4 Cartes Blanches */}
-              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="bg-white p-7 rounded-[28px] border border-gray-100 shadow-sm space-y-3 hover:shadow-md transition-shadow">
-                  <div className="w-11 h-11 rounded-2xl bg-[#1B4332] text-white flex items-center justify-center shadow-sm">
-                    <Sprout className="w-5 h-5 text-[#52B788]" />
-                  </div>
-                  <h3 className="text-lg font-bold text-[#0F172A]">Seed Germination</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Learn proper sowing depth, moisture balance, and lighting setups for herbs like basil, rosemary, and mint.
+            {/* Bloc Témoignages / Impact Communautaire */}
+            <div className="pt-10 border-t border-gray-200/60">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                <div className="lg:col-span-5 space-y-4">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#52B788]">
+                    Voices From The Garden
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight">
+                    Loved by Local Kingston Gardeners
+                  </h3>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    Neighbors and beginners who turned their balconies and backyards into flourishing green spaces through Jade&apos;s workshops.
                   </p>
                 </div>
 
-                <div className="bg-white p-7 rounded-[28px] border border-gray-100 shadow-sm space-y-3 hover:shadow-md transition-shadow">
-                  <div className="w-11 h-11 rounded-2xl bg-[#1B4332] text-white flex items-center justify-center shadow-sm">
-                    <Leaf className="w-5 h-5 text-[#52B788]" />
-                  </div>
-                  <h3 className="text-lg font-bold text-[#0F172A]">Living Soil & Compost</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Nurture beneficial mycorrhizae and earthworms with homemade compost, mulch, and organic amendments.
-                  </p>
-                </div>
-
-                <div className="bg-white p-7 rounded-[28px] border border-gray-100 shadow-sm space-y-3 hover:shadow-md transition-shadow">
-                  <div className="w-11 h-11 rounded-2xl bg-[#1B4332] text-white flex items-center justify-center shadow-sm">
-                    <Sun className="w-5 h-5 text-[#52B788]" />
-                  </div>
-                  <h3 className="text-lg font-bold text-[#0F172A]">Cool-Season Crops</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Discover how to cultivate sweet autumn spinach, kale, radishes, and overwintering garlic cloves with ease.
-                  </p>
-                </div>
-
-                <div className="bg-white p-7 rounded-[28px] border border-gray-100 shadow-sm space-y-3 hover:shadow-md transition-shadow">
-                  <div className="w-11 h-11 rounded-2xl bg-[#1B4332] text-white flex items-center justify-center shadow-sm">
-                    <ShieldCheck className="w-5 h-5 text-[#52B788]" />
-                  </div>
-                  <h3 className="text-lg font-bold text-[#0F172A]">Natural Pest Defense</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Protect plants organically with companion planting, marigolds, beneficial insects, and gentle herbal sprays.
-                  </p>
-                </div>
-              </div>
-
-              {/* Colonne Droite : Titre & Introduction */}
-              <div className="lg:col-span-5 space-y-5 lg:pl-6">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#52B788]">
-                  Curriculum Highlights
-                </span>
-
-                <h3 className="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight leading-snug">
-                  Grow Fresh Food in Any Space You Have
-                </h3>
-
-                <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                  Whether you cultivate a backyard garden bed, a suburban patio, or a sunny kitchen windowsill, these Saturday workshops give you practical confidence to grow nutritious, fresh herbs and vegetables from scratch.
-                </p>
-
-                <div className="pt-2">
-                  <a
-                    href="#schedule"
-                    className="inline-block px-8 py-3.5 bg-[#1B4332] hover:bg-[#2D6A4F] text-white font-bold rounded-full text-xs transition-all shadow-md"
-                  >
-                    Select Your Saturday Slot
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ============================================================================== */}
-        {/* 5. SCHEDULE & AVAILABILITY SECTION - CADENCE OFFICIELLE OCTOBRE               */}
-        {/* ============================================================================== */}
-        <section id="schedule" className="py-12 border-t border-gray-200/60 scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-6 lg:px-12 space-y-12">
-            {/* Header du planning */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end border-b border-gray-200/80 pb-6">
-              <div className="lg:col-span-6 space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1B4332]/10 text-[#1B4332] text-xs font-bold uppercase tracking-wider">
-                  <Calendar className="w-3.5 h-3.5 text-[#52B788]" />
-                  <span>Official October Schedule</span>
-                </div>
-                <h3 className="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">
-                  Every Saturday morning in October
-                </h3>
-              </div>
-              <div className="lg:col-span-6">
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  Join Jade Belstead at the community greenhouse every Saturday from <strong>10:00 AM to 12:30 PM</strong>. Each session holds up to 10 participants to ensure personal coaching and plenty of hands-on planting.
-                </p>
-              </div>
-            </div>
-
-            {/* Composant interactif OctoberSchedule avec les 5 samedis et la modale */}
-            <OctoberSchedule workshops={workshops} />
-          </div>
-        </section>
-
-        {/* ============================================================================== */}
-        {/* 6. SECTION TESTIMONIALS - AVIS DE LA COMMUNAUTÉ LOCALE                          */}
-        {/* ============================================================================== */}
-        <section className="py-12 border-t border-gray-200/60">
-          <div className="max-w-7xl mx-auto px-6 lg:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-              {/* Colonne Gauche */}
-              <div className="lg:col-span-5 space-y-6">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#52B788]">
-                  Community Stories
-                </span>
-
-                <h3 className="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight leading-tight">
-                  Loved by Local Kingston Gardeners
-                </h3>
-
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  Read inspiring feedback from neighbors and local beginners who turned their balconies and small yards into flourishing green spaces under Jade&apos;s guidance.
-                </p>
-
-                <div>
-                  <a
-                    href="#schedule"
-                    className="inline-block px-8 py-3.5 bg-[#1B4332] hover:bg-[#2D6A4F] text-white font-bold rounded-full text-xs transition-all shadow-md"
-                  >
-                    Join a Saturday Workshop
-                  </a>
-                </div>
-              </div>
-
-              {/* Colonne Droite : 3 Cartes Vert Forêt Profond */}
-              <div className="lg:col-span-7 space-y-6">
-                {/* Carte 1 */}
-                <div className="bg-[#1B4332] text-white rounded-[28px] p-7 sm:p-8 relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
-                  <div className="space-y-3 max-w-sm z-10">
+                <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {/* Carte 1 */}
+                  <div className="bg-[#1B4332] text-white rounded-[24px] p-6 relative overflow-hidden shadow-lg space-y-3">
                     <span className="text-3xl font-serif text-emerald-200/70 block">“</span>
-                    <h4 className="text-lg font-bold">My herbs are thriving!</h4>
                     <p className="text-xs text-emerald-100 leading-relaxed">
                       &quot;I used to kill every supermarket herb I bought. Jade showed us how to prune roots, aerate soil, and water correctly. My kitchen smells amazing!&quot;
                     </p>
-                    <div className="pt-2">
-                      <p className="font-bold text-sm text-white">Clara Dupuis</p>
-                      <p className="text-xs text-emerald-200/80">Balcony Gardener, Kingston</p>
+                    <div className="pt-2 border-t border-white/10">
+                      <p className="font-bold text-xs text-white">Clara Dupuis</p>
+                      <p className="text-[11px] text-emerald-200/80">Balcony Gardener, Kingston</p>
                     </div>
                   </div>
 
-                  <div className="relative w-36 h-48 sm:w-40 sm:h-48 shrink-0 overflow-hidden rounded-2xl border-2 border-white/20">
-                    <Image
-                      src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80"
-                      alt="Clara Dupuis"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                </div>
-
-                {/* Carte 2 */}
-                <div className="bg-[#1B4332] text-white rounded-[28px] p-7 sm:p-8 relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
-                  <div className="space-y-3 max-w-sm z-10">
+                  {/* Carte 2 */}
+                  <div className="bg-[#1B4332] text-white rounded-[24px] p-6 relative overflow-hidden shadow-lg space-y-3">
                     <span className="text-3xl font-serif text-emerald-200/70 block">“</span>
-                    <h4 className="text-lg font-bold">Invaluable soil tips</h4>
                     <p className="text-xs text-emerald-100 leading-relaxed">
                       &quot;Jade&apos;s 10 years of community experience clearly shows. The compost and soil biology session completely changed how I look at organic waste.&quot;
                     </p>
-                    <div className="pt-2">
-                      <p className="font-bold text-sm text-white">Marc Henderson</p>
-                      <p className="text-xs text-emerald-200/80">Allotment Volunteer</p>
+                    <div className="pt-2 border-t border-white/10">
+                      <p className="font-bold text-xs text-white">Marc Henderson</p>
+                      <p className="text-[11px] text-emerald-200/80">Allotment Volunteer</p>
                     </div>
-                  </div>
-
-                  <div className="relative w-36 h-48 sm:w-40 sm:h-48 shrink-0 overflow-hidden rounded-2xl border-2 border-white/20">
-                    <Image
-                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80"
-                      alt="Marc Henderson"
-                      fill
-                      className="object-cover"
-                    />
                   </div>
                 </div>
               </div>
@@ -514,7 +495,7 @@ export default async function HomePage() {
         </section>
 
         {/* ============================================================================== */}
-        {/* 7. CONTACT & NEWSLETTER SECTION                                                */}
+        {/* 6. CONTACT & NEWSLETTER SECTION                                                */}
         {/* ============================================================================== */}
         <section id="contact-us" className="py-12 border-t border-gray-200/60 scroll-mt-20">
           <div className="max-w-7xl mx-auto px-6 lg:px-12 space-y-14">
@@ -522,9 +503,9 @@ export default async function HomePage() {
               <span className="text-xs font-bold uppercase tracking-wider text-[#52B788]">
                 Get In Touch
               </span>
-              <h3 className="text-3xl sm:text-5xl font-extrabold text-[#0F172A] tracking-tight">
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-[#0F172A] tracking-tight">
                 Connect with Jade
-              </h3>
+              </h2>
               <p className="text-sm text-slate-600 leading-relaxed">
                 Have questions regarding the October sessions, accessibility at the garden, or private group bookings? Drop us a message anytime.
               </p>
@@ -539,7 +520,7 @@ export default async function HomePage() {
                 </div>
                 <div>
                   <h4 className="font-bold text-base text-[#0F172A]">Location</h4>
-                  <p className="text-xs text-slate-500 mt-1">Kingston Community Greenhouse & Gardens</p>
+                  <p className="text-xs text-slate-500 mt-1">Kingston Community Greenhouse &amp; Gardens</p>
                   <p className="text-xs text-slate-500">Kingston, New York 12401</p>
                 </div>
               </div>
@@ -588,9 +569,9 @@ export default async function HomePage() {
                   <div className="w-12 h-12 mx-auto rounded-full bg-[#1B4332]/10 text-[#1B4332] flex items-center justify-center">
                     <Sprout className="w-6 h-6 text-[#52B788]" />
                   </div>
-                  <h4 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A]">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A]">
                     Seasonal Garden Tips
-                  </h4>
+                  </h3>
                   <p className="text-xs sm:text-sm text-slate-500 max-w-sm mx-auto">
                     Subscribe to receive Jade&apos;s monthly planting calendar and first access to new seasonal workshop dates.
                   </p>
@@ -604,7 +585,7 @@ export default async function HomePage() {
       </main>
 
       {/* ============================================================================== */}
-      {/* 8. FOOTER - EVENTO ARCHITECTURE AVEC LIEN ADMIN DISCRET                         */}
+      {/* 7. FOOTER                                                                      */}
       {/* ============================================================================== */}
       <footer className="bg-[#F4F7F3] text-slate-700 pt-16 pb-12 border-t border-gray-200/70">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-gray-200/70">
@@ -646,27 +627,27 @@ export default async function HomePage() {
 
           {/* Colonne 2 : Quick Links */}
           <div className="space-y-3">
-            <h5 className="font-bold text-sm text-[#0F172A]">Workshop Navigation</h5>
+            <h4 className="font-bold text-sm text-[#0F172A]">Workshop Navigation</h4>
             <ul className="space-y-2 text-xs text-slate-600">
               <li><a href="/" className="hover:text-[#1B4332] transition-colors">Home</a></li>
-              <li><a href="#about-instructor" className="hover:text-[#1B4332] transition-colors">About Jade Belstead</a></li>
               <li><a href="#schedule" className="hover:text-[#1B4332] transition-colors">October Schedule</a></li>
-              <li><a href="#benefits" className="hover:text-[#1B4332] transition-colors">What You&apos;ll Learn</a></li>
-              <li><a href="#contact-us" className="hover:text-[#1B4332] transition-colors">Contact & Location</a></li>
+              <li><a href="#experience" className="hover:text-[#1B4332] transition-colors">Your Experience</a></li>
+              <li><a href="#instructor-impact" className="hover:text-[#1B4332] transition-colors">Instructor &amp; Impact</a></li>
+              <li><a href="#contact-us" className="hover:text-[#1B4332] transition-colors">Contact &amp; Location</a></li>
             </ul>
           </div>
 
           {/* Colonne 3 : October Saturday Dates */}
           <div className="space-y-3">
-            <h5 className="font-bold text-sm text-[#0F172A]">October Sessions</h5>
+            <h4 className="font-bold text-sm text-[#0F172A]">October Sessions</h4>
             <ul className="space-y-2 text-xs text-slate-600">
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#52B788]" />
-                <span>Oct 3: Herbs & Seed Starting</span>
+                <span>Oct 3: Herbs &amp; Seed Starting</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#52B788]" />
-                <span>Oct 10: Soil Health & Compost</span>
+                <span>Oct 10: Soil Health &amp; Compost</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#52B788]" />
@@ -674,18 +655,18 @@ export default async function HomePage() {
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#52B788]" />
-                <span>Oct 24: Pest Control & Pruning</span>
+                <span>Oct 24: Pest Control &amp; Pruning</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#52B788]" />
-                <span>Oct 31: Winter Prep & Harvesting</span>
+                <span>Oct 31: Winter Prep &amp; Harvesting</span>
               </li>
             </ul>
           </div>
 
           {/* Colonne 4 : Instructor Note */}
           <div className="space-y-3">
-            <h5 className="font-bold text-sm text-[#0F172A]">Community Project</h5>
+            <h4 className="font-bold text-sm text-[#0F172A]">Community Project</h4>
             <p className="text-xs text-slate-500 leading-relaxed">
               Hosted by Jade Belstead with 10+ years of community gardening involvement. All sessions are 100% free with materials provided.
             </p>
