@@ -9,5 +9,5 @@ compatibility_flags = ["nodejs_compat"]
 # Dossier de build pour Cloudflare Pages
 pages_build_output_dir = ".vercel/output/static"
 
-[env.production.vars]
+[vars]
 RESEND_FROM_EMAIL = "onboarding@resend.dev"
