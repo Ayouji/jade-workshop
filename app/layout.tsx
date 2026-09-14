@@ -1,17 +1,32 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+});
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
   variable: "--font-sans",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Seasonal Gardening Basics — Jade Belstead | Kingston, NY",
-  description: "Learn to plant and nurture your own herbs and vegetables. Free community gardening workshops every Saturday in October hosted by Jade Belstead.",
+  title: "Jade — Creative Workshop Studio",
+  description: "Hands-on creative workshops designed to help people slow down, experiment, connect, and create something worth remembering.",
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  },
 };
 
 export default function RootLayout({
@@ -22,9 +37,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakartaSans.variable} scroll-smooth antialiased`}
+      className={`${cormorant.variable} ${plusJakartaSans.variable} scroll-smooth antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-[#FBFBF9] text-[#1A1A1A]">
+      <body className="min-h-full flex flex-col font-sans bg-[#F7F5F0] text-[#24211D]">
         {children}
       </body>
     </html>

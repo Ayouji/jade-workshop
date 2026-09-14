@@ -13,7 +13,7 @@ interface HeroBookingCtaProps {
 
 export function HeroBookingCta({
   workshops,
-  ctaLabel = 'Book Your Spot for October',
+  ctaLabel = 'Reserve a Workshop Spot',
   scheduleLabel = 'View Full Schedule',
 }: HeroBookingCtaProps) {
   const [isOpen, setIsOpen] = useState(false);
