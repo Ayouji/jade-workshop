@@ -81,7 +81,8 @@ En cas de fausse manipulation ou perte de données :
 
 ### Incident 3 : Erreur d'affichage d'une image d'atelier externe
 - *Cause* : Next.js bloque les noms de domaines externes non déclarés dans `next.config.ts`.
-- *Solution* : Le fichier [next.config.ts](file:///c:/Users/windows/Desktop/Hassan_Folder/projet-jade/next.config.ts) est déjà configuré avec le wildcard `**` en protocole HTTPS pour autoriser toutes les images sécurisées et Unsplash. Les images uploadées directement depuis l'ordinateur sont encodées en Base64 et ne dépendent d'aucun hébergeur tiers.
+- *Solution* : Le fichier [next.config.ts](file:///c:/Users/windows/Desktop/Hassan_Folder/projet-jade/next.config.ts) est déjà configuré avec le wildcard `**` en protocole HTTPS pour autoriser toutes les images sécurisées et Unsplash. Les images uploadées directement depuis l'ordinateur sont encodées en Base64 et ne 
+dépendent d'aucun hébergeur tiers.
 
 ---
 
