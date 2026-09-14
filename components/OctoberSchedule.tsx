@@ -121,13 +121,12 @@ export function OctoberSchedule({ workshops }: OctoberScheduleProps) {
                 {/* Col 3: Capacity & Pricing Status */}
                 <div className="col-span-2 flex flex-col items-center justify-center space-y-1">
                   <span
-                    className={`inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-mono font-medium border ${
-                      isSoldOut
+                    className={`inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-mono font-medium border ${isSoldOut
                         ? 'bg-stone-100 text-stone-500 border-stone-300'
                         : ws.remaining_seats <= 2
-                        ? 'bg-amber-50 text-amber-900 border-amber-300'
-                        : 'bg-emerald-50/80 text-emerald-900 border-emerald-200'
-                    }`}
+                          ? 'bg-amber-50 text-amber-900 border-amber-300'
+                          : 'bg-emerald-50/80 text-emerald-900 border-emerald-200'
+                      }`}
                   >
                     {isSoldOut ? 'Session Full' : `${ws.remaining_seats} / ${ws.capacity} spots left`}
                   </span>
@@ -143,11 +142,10 @@ export function OctoberSchedule({ workshops }: OctoberScheduleProps) {
                     onClick={() => setSelectedWorkshop(ws)}
                     disabled={isSoldOut}
                     aria-label={`Book spot for ${ws.title}`}
-                    className={`h-10 px-5 text-xs font-semibold uppercase tracking-wider rounded-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer focus:ring-2 focus:ring-[#2D4A3E]/30 focus:outline-none ${
-                      isSoldOut
+                    className={`h-10 px-5 text-xs font-semibold uppercase tracking-wider rounded-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer focus:ring-2 focus:ring-[#2D4A3E]/30 focus:outline-none ${isSoldOut
                         ? 'bg-stone-100 text-stone-400 border border-stone-200 cursor-not-allowed'
                         : 'bg-[#2D4A3E] hover:bg-[#1E342B] text-white shadow-2xs'
-                    }`}
+                      }`}
                   >
                     <span>{isSoldOut ? 'Sold Out' : 'Book Spot'}</span>
                     {!isSoldOut && <ArrowUpRight className="w-3.5 h-3.5 shrink-0" />}
@@ -173,11 +171,10 @@ export function OctoberSchedule({ workshops }: OctoberScheduleProps) {
                   </div>
 
                   <span
-                    className={`inline-block px-2 py-0.5 rounded text-[10px] font-mono font-medium border ${
-                      isSoldOut
+                    className={`inline-block px-2 py-0.5 rounded text-[10px] font-mono font-medium border ${isSoldOut
                         ? 'bg-stone-100 text-stone-500 border-stone-300'
                         : 'bg-emerald-50 text-emerald-900 border-emerald-200'
-                    }`}
+                      }`}
                   >
                     {isSoldOut ? 'Full' : `${ws.remaining_seats} spots`}
                   </span>
@@ -204,11 +201,10 @@ export function OctoberSchedule({ workshops }: OctoberScheduleProps) {
                     type="button"
                     onClick={() => setSelectedWorkshop(ws)}
                     disabled={isSoldOut}
-                    className={`w-full sm:w-auto h-11 px-6 text-xs font-semibold uppercase tracking-wider rounded-md transition-colors flex items-center justify-center gap-1.5 ${
-                      isSoldOut
+                    className={`w-full sm:w-auto h-11 px-6 text-xs font-semibold uppercase tracking-wider rounded-md transition-colors flex items-center justify-center gap-1.5 ${isSoldOut
                         ? 'bg-stone-100 text-stone-400 border border-stone-200 cursor-not-allowed'
                         : 'bg-[#2D4A3E] hover:bg-[#1E342B] text-white'
-                    }`}
+                      }`}
                   >
                     <span>{isSoldOut ? 'Session Full' : 'Book This Saturday'}</span>
                     {!isSoldOut && <ArrowUpRight className="w-4 h-4" />}

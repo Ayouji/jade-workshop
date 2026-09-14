@@ -2,11 +2,11 @@
 
 @theme {
   --font-sans: var(--font-sans), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
+
   --color-canvas: #FBFBF9;
   --color-surface: #FFFFFF;
   --color-surface-subtle: #F5F5F2;
-  
+
   --color-stone-900: #1A1A1A;
   --color-stone-800: #262626;
   --color-stone-700: #404040;
@@ -21,7 +21,7 @@
   --color-forest: #2D4A3E;
   --color-forest-hover: #1E342B;
   --color-forest-light: #EBF1EE;
-  
+
   --color-sage: #4A6B5D;
   --color-sage-light: #F0F4F2;
 }
