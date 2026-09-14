@@ -12,9 +12,9 @@ export function Navbar({ onBookClick }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { label: 'Workshops', href: '#workshops' },
-    { label: 'About', href: '#about' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'Workshops', href: '/#workshops' },
+    { label: 'About', href: '/#about' },
+    { label: 'Contact', href: '/#contact' },
   ];
 
   return (
@@ -33,20 +33,20 @@ export function Navbar({ onBookClick }: NavbarProps) {
         {/* Minimal Desktop Navigation: WORKSHOPS, ABOUT, CONTACT */}
         <nav className="hidden md:flex items-center gap-10 text-xs uppercase tracking-widest text-stone-600 font-medium">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
               className="hover:text-[#24211D] transition-colors py-1 relative hover:font-semibold"
             >
               {link.label.toUpperCase()}
-            </a>
+            </Link>
           ))}
         </nav>
 
         {/* Distinct Dark Pill Booking CTA */}
         <div className="flex items-center gap-4">
-          <a
-            href="#workshops"
+          <Link
+            href="/#workshops"
             onClick={(e) => {
               if (onBookClick) {
                 e.preventDefault();
@@ -57,7 +57,7 @@ export function Navbar({ onBookClick }: NavbarProps) {
           >
             <span>BOOK A WORKSHOP</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
-          </a>
+          </Link>
 
           {/* Mobile Hamburger */}
           <button
@@ -76,18 +76,18 @@ export function Navbar({ onBookClick }: NavbarProps) {
         <div className="md:hidden bg-[#F7F5F0] border-b border-stone-200 px-6 py-6 shadow-lg animate-in slide-in-from-top-2 duration-150">
           <nav className="flex flex-col space-y-4">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.label}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
                 className="text-xs uppercase tracking-widest font-semibold text-[#24211D] hover:text-[#B85B3A] transition-colors py-1"
               >
                 {link.label.toUpperCase()}
-              </a>
+              </Link>
             ))}
             <div className="pt-3 border-t border-stone-200">
-              <a
-                href="#workshops"
+              <Link
+                href="/#workshops"
                 onClick={() => {
                   setIsOpen(false);
                   if (onBookClick) onBookClick();
@@ -96,7 +96,7 @@ export function Navbar({ onBookClick }: NavbarProps) {
               >
                 <span>BOOK A WORKSHOP</span>
                 <ArrowUpRight className="w-4 h-4" />
-              </a>
+              </Link>
             </div>
           </nav>
         </div>
