@@ -39,7 +39,7 @@ export interface DashboardStats {
 }
 
 function verifyTokenOrCredentials(tokenOrKey: string): boolean {
-  const expectedEmail = (process.env.ADMIN_EMAIL || 'ayoujilhassan183@gmail.com').trim().toLowerCase();
+  const expectedEmail = (process.env.ADMIN_EMAIL || 'contact.prelify@gmail.com').trim().toLowerCase();
   const expectedPassword = (process.env.ADMIN_PASSWORD || process.env.ADMIN_SECRET_KEY || 'jade_workshop_2026').trim();
 
   const trimmed = tokenOrKey.trim();
@@ -68,7 +68,7 @@ export async function loginAdmin(
   email: string,
   password: string
 ): Promise<{ success: boolean; token?: string; message?: string; user?: { email: string; name: string } }> {
-  const expectedEmail = (process.env.ADMIN_EMAIL || 'ayoujilhassan183@gmail.com').trim().toLowerCase();
+  const expectedEmail = (process.env.ADMIN_EMAIL || 'contact.prelify@gmail.com').trim().toLowerCase();
   const expectedPassword = (process.env.ADMIN_PASSWORD || process.env.ADMIN_SECRET_KEY || 'jade_workshop_2026').trim();
 
   if (email.trim().toLowerCase() === expectedEmail && password.trim() === expectedPassword) {

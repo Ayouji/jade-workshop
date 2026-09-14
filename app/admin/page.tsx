@@ -73,7 +73,7 @@ const PRESET_IMAGES = [
 export default function AdminPage() {
   // Auth state
   const [sessionToken, setSessionToken] = useState<string | null>(null);
-  const [emailInput, setEmailInput] = useState('ayoujilhassan183@gmail.com');
+  const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);

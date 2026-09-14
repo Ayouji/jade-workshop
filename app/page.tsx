@@ -387,7 +387,6 @@ export default async function HomePage() {
               <a href="#workshops" className="hover:text-[#B85B3A] transition-colors">Workshops</a>
               <a href="#about" className="hover:text-[#B85B3A] transition-colors">About</a>
               <a href="#contact" className="hover:text-[#B85B3A] transition-colors">Contact</a>
-              <Link href="/admin" className="text-[#B85B3A] hover:underline">Admin Portal</Link>
             </nav>
           </div>
 
