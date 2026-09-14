@@ -432,7 +432,7 @@ export default function AdminPage() {
             </nav>
           </div>
 
-          <div>
+          {/* <div>
             <div className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400 px-2.5 mb-1.5">
               Système
             </div>
@@ -445,7 +445,7 @@ export default function AdminPage() {
                 Connecté au cluster Neon en temps réel
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Profil & Actions Footer */}
