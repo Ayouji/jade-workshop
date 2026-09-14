@@ -8,7 +8,7 @@ Bienvenue dans votre nouvel outil de gestion d'ateliers céramique ! Ce guide a 
 
 1. Rendez-vous sur votre site internet et ajoutez **/admin** à la fin de l'adresse (exemple : `https://votre-site.pages.dev/admin` ou `http://localhost:3000/admin` en test).
 2. Saisissez vos identifiants :
-   - **Adresse email** : `ayoujilhassan183@gmail.com`
+   - **Adresse email** : `contact.prelify@gmail.com`
    - **Mot de passe** : `jade_workshop_2026`
 3. Cliquez sur **« Accéder au Dashboard »**.
 
@@ -78,7 +78,7 @@ Dès que vous souhaitez ouvrir une nouvelle date à la réservation :
 
 Vous n'avez rien à faire manuellement pour confirmer les inscriptions :
 - Dès qu'un visiteur réserve sur le site, **il reçoit automatiquement un bel email de confirmation** aux couleurs de Jade rappelant la date, l'heure, l'adresse de l'atelier (14 rue des Artisans, Paris 11e) et lui précisant que le paiement se fera sur place.
-- **Vous recevez simultanément une alerte** sur votre boîte Gmail (`ayoujilhassan183@gmail.com`) avec le récapitulatif complet du participant.
+- **Vous recevez simultanément une alerte** sur votre boîte Gmail (`contact.prelify@gmail.com`) avec le récapitulatif complet du participant.
 
 ---
 

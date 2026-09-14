@@ -23,12 +23,12 @@ Le fichier [.env.local](file:///c:/Users/windows/Desktop/Hassan_Folder/projet-ja
 DATABASE_URL="postgresql://neondb_owner:npg_rPChfi9svH6M@ep-spring-water-a54417t2-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
 
 # Envoi d'emails via Gmail SMTP
-GMAIL_USER="ayoujilhassan183@gmail.com"
-GMAIL_APP_PASSWORD="kmvs cmly xyxh xalm"
-ADMIN_NOTIFICATION_EMAIL="ayoujilhassan183@gmail.com"
+GMAIL_USER="contact.prelify@gmail.com"
+GMAIL_APP_PASSWORD="eaee qior edel djt"
+ADMIN_NOTIFICATION_EMAIL="contact.prelify@gmail.com"
 
 # Identifiants Espace Admin (/admin)
-ADMIN_EMAIL="ayoujilhassan183@gmail.com"
+ADMIN_EMAIL="contact.prelify@gmail.com"
 ADMIN_PASSWORD="jade_workshop_2026"
 ```
 
@@ -72,7 +72,7 @@ En cas de fausse manipulation ou perte de données :
 
 ### Incident 1 : Les emails ne partent plus via Gmail
 - **Symptôme** : La réservation réussit en base mais aucun email n'est reçu.
-- **Cause 1 - Révocation du mot de passe d'application Google** : Si le mot de passe du compte Google `ayoujilhassan183@gmail.com` a été changé, Google révoque automatiquement les mots de passe d'application.
+- **Cause 1 - Révocation du mot de passe d'application Google** : Si le mot de passe du compte Google `contact.prelify@gmail.com` a été changé, Google révoque automatiquement les mots de passe d'application.
   - *Solution* : Se reconnecter sur [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords), générer un nouveau code de 16 caractères et mettre à jour `GMAIL_APP_PASSWORD`.
 - **Cause 2 - Quota SMTP Gmail** : Google autorise jusqu'à 500 emails par jour pour un compte gratuit personnel, ce qui est très largement suffisant pour un atelier artisanal. Si ce quota était un jour atteint, configurez simplement une clé Resend vérifiée dans `RESEND_API_KEY`.
 
