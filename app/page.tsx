@@ -320,7 +320,7 @@ export default async function HomePage() {
                     Workshop Location &amp; Inquiries
                   </h2>
                   <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
-                    Workshops run on Saturday mornings in October. For questions about sessions, private groups, or availability, get in touch below.
+                    Workshops run on weekend mornings. For questions about sessions, private groups, or availability, get in touch below.
                   </p>
                 </div>
 
