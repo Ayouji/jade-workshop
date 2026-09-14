@@ -4,11 +4,10 @@ import React, { useState } from 'react';
 import { WorkshopWithAvailability } from '@/lib/db';
 import { BookingModal } from './BookingModal';
 import {
-  Calendar,
   Clock,
-  Users,
-  ArrowRight,
+  ArrowUpRight,
   Sprout,
+  CheckCircle,
 } from 'lucide-react';
 
 interface OctoberScheduleProps {
@@ -18,41 +17,51 @@ interface OctoberScheduleProps {
 export function OctoberSchedule({ workshops }: OctoberScheduleProps) {
   const [selectedWorkshop, setSelectedWorkshop] = useState<WorkshopWithAvailability | null>(null);
 
-  const formatDateLabel = (dateStr: string) => {
+  const formatDateMetadata = (dateStr: string) => {
     try {
       const [year, month, day] = dateStr.split('-').map(Number);
       const d = new Date(year, month - 1, day);
-      return new Intl.DateTimeFormat('en-US', {
-        weekday: 'long',
-        month: 'short',
-        day: 'numeric',
-      }).format(d);
+      const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(d).toUpperCase();
+      const monthStr = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(d).toUpperCase();
+      const dayNum = String(day).padStart(2, '0');
+      return {
+        weekday,
+        monthStr,
+        dayNum,
+        fullFormatted: `${weekday}, ${monthStr} ${dayNum}`,
+      };
     } catch {
-      return dateStr;
+      return {
+        weekday: 'SAT',
+        monthStr: 'OCT',
+        dayNum: '00',
+        fullFormatted: dateStr,
+      };
     }
   };
 
   // Empty state if all sessions have passed or no workshops currently in database
   if (!workshops || workshops.length === 0) {
     return (
-      <div className="w-full max-w-2xl mx-auto text-center py-12 sm:py-16 px-6 bg-white rounded-3xl border border-gray-100 shadow-sm space-y-4">
-        <div className="w-14 h-14 rounded-full bg-[#1B4332]/10 text-[#1B4332] flex items-center justify-center mx-auto">
-          <Sprout className="w-7 h-7 text-[#52B788]" />
+      <div className="w-full text-center py-16 px-6 bg-white rounded-lg border border-[#E5E5E0] space-y-4">
+        <div className="w-12 h-12 rounded-md bg-stone-100 text-stone-700 flex items-center justify-center mx-auto border border-[#E5E5E0]">
+          <Sprout className="w-5 h-5 text-[#2D4A3E]" />
         </div>
-        <h3 className="text-xl sm:text-2xl font-bold text-[#0F172A]">
-          Next Workshop Series Coming Soon
-        </h3>
-        <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-          Current sessions have concluded. Jade is scheduling upcoming seasonal gardening workshops.
-          Sign up below to receive first priority when new spots open.
-        </p>
+        <div className="space-y-1 max-w-md mx-auto">
+          <h3 className="text-base font-bold text-[#1A1A1A] uppercase tracking-wide">
+            Next Workshop Series Coming Soon
+          </h3>
+          <p className="text-xs text-stone-600 leading-relaxed">
+            Current seasonal sessions have completed. Sign up to receive priority notification when the next schedule is published.
+          </p>
+        </div>
         <div className="pt-2">
           <a
             href="#contact-us"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#1B4332] hover:bg-[#2D6A4F] text-white text-xs sm:text-sm font-bold rounded-full transition-all shadow-sm"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#2D4A3E] hover:bg-[#1E342B] text-white text-xs font-semibold uppercase tracking-wider rounded-md transition-colors"
           >
             <span>Notify Me of New Dates</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>
       </div>
@@ -60,84 +69,158 @@ export function OctoberSchedule({ workshops }: OctoberScheduleProps) {
   }
 
   return (
-    <div className="space-y-6 sm:space-y-8 w-full">
-      {/* Timeline List of Sessions */}
-      <div className="space-y-4 sm:space-y-5">
+    <div className="w-full space-y-4">
+      {/* Swiss Tabular List Header (Desktop Only) */}
+      <div className="hidden lg:grid lg:grid-cols-12 gap-4 pb-3 border-b border-[#E5E5E0] text-[11px] font-bold uppercase tracking-widest text-stone-500">
+        <div className="col-span-3">Session &amp; Date</div>
+        <div className="col-span-5">Workshop Syllabus &amp; Details</div>
+        <div className="col-span-2 text-center">Availability</div>
+        <div className="col-span-2 text-right">Registration</div>
+      </div>
+
+      {/* Rows Container with Hairline Horizontal Dividers */}
+      <div className="divide-y divide-[#E5E5E0] border-y border-[#E5E5E0]">
         {workshops.map((ws, index) => {
           const isSoldOut = ws.remaining_seats <= 0;
+          const dateMeta = formatDateMetadata(ws.date);
+          const sessionIndex = String(index + 1).padStart(2, '0');
+
           return (
             <div
               key={ws.id}
-              className="bg-white p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-gray-100/90 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 sm:gap-6 hover:shadow-md hover:border-[#52B788]/40 transition-all group"
+              className="py-5 sm:py-6 group transition-colors hover:bg-white/60"
             >
-              {/* Date & Week Metadata */}
-              <div className="space-y-1.5 md:w-1/4 shrink-0">
-                <span className="inline-block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#52B788]">
-                  Session 0{index + 1}
-                </span>
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-[#1B4332] shrink-0" />
-                  <span>{formatDateLabel(ws.date)}</span>
-                </h3>
-                <div className="flex items-center gap-2 text-xs text-slate-500 font-medium">
-                  <Clock className="w-3.5 h-3.5 text-[#1B4332] shrink-0" />
-                  <span>{ws.start_time} – {ws.end_time}</span>
+              {/* Desktop 12-Column Grid */}
+              <div className="hidden lg:grid lg:grid-cols-12 gap-4 items-center">
+                {/* Col 1: Date & Metadata */}
+                <div className="col-span-3 space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-xs font-bold text-stone-400">
+                      {sessionIndex}
+                    </span>
+                    <span className="font-mono text-sm font-bold text-[#1A1A1A] tracking-tight">
+                      {dateMeta.fullFormatted}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs text-stone-500 font-mono">
+                    <Clock className="w-3.5 h-3.5 text-stone-400 shrink-0" />
+                    <span>{ws.start_time} – {ws.end_time}</span>
+                  </div>
                 </div>
-              </div>
 
-              {/* Title, Description & Availability Badges */}
-              <div className="space-y-2 md:w-1/2 flex-1">
-                <h4 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-[#1B4332] transition-colors leading-snug">
-                  {ws.title}
-                </h4>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  {ws.description}
-                </p>
-                <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 text-xs font-semibold pt-1">
+                {/* Col 2: Title & Description */}
+                <div className="col-span-5 space-y-1 pr-4">
+                  <h3 className="text-sm font-bold text-[#1A1A1A] group-hover:text-[#2D4A3E] transition-colors leading-snug">
+                    {ws.title}
+                  </h3>
+                  <p className="text-xs text-stone-600 leading-relaxed line-clamp-2">
+                    {ws.description}
+                  </p>
+                </div>
+
+                {/* Col 3: Capacity & Pricing Status */}
+                <div className="col-span-2 flex flex-col items-center justify-center space-y-1">
                   <span
-                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold ${
+                    className={`inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-mono font-medium border ${
                       isSoldOut
-                        ? 'bg-red-50 text-red-700'
+                        ? 'bg-stone-100 text-stone-500 border-stone-300'
                         : ws.remaining_seats <= 2
-                        ? 'bg-amber-50 text-amber-800'
-                        : 'bg-emerald-50 text-emerald-800'
+                        ? 'bg-amber-50 text-amber-900 border-amber-300'
+                        : 'bg-emerald-50/80 text-emerald-900 border-emerald-200'
                     }`}
                   >
-                    <Users className="w-3 h-3 shrink-0" />
-                    {isSoldOut
-                      ? 'Session Full'
-                      : `${ws.remaining_seats} / ${ws.capacity} spots left`}
+                    {isSoldOut ? 'Session Full' : `${ws.remaining_seats} / ${ws.capacity} spots left`}
                   </span>
-                  <span className="text-slate-400 hidden sm:inline">•</span>
-                  <span className="text-slate-600 text-[11px] font-medium bg-slate-100/80 px-2.5 py-0.5 rounded-full sm:bg-transparent sm:p-0">
-                    Free Community Admission
+                  <span className="text-[10px] text-stone-500 tracking-tight">
+                    100% Free • All Tools Provided
                   </span>
+                </div>
+
+                {/* Col 4: Action Button */}
+                <div className="col-span-2 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedWorkshop(ws)}
+                    disabled={isSoldOut}
+                    aria-label={`Book spot for ${ws.title}`}
+                    className={`h-10 px-5 text-xs font-semibold uppercase tracking-wider rounded-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer focus:ring-2 focus:ring-[#2D4A3E]/30 focus:outline-none ${
+                      isSoldOut
+                        ? 'bg-stone-100 text-stone-400 border border-stone-200 cursor-not-allowed'
+                        : 'bg-[#2D4A3E] hover:bg-[#1E342B] text-white shadow-2xs'
+                    }`}
+                  >
+                    <span>{isSoldOut ? 'Sold Out' : 'Book Spot'}</span>
+                    {!isSoldOut && <ArrowUpRight className="w-3.5 h-3.5 shrink-0" />}
+                  </button>
                 </div>
               </div>
 
-              {/* Call to Action Button: Full width on mobile (< md), auto on desktop */}
-              <div className="md:w-1/4 flex justify-stretch md:justify-end w-full shrink-0 pt-2 md:pt-0">
-                <button
-                  type="button"
-                  onClick={() => setSelectedWorkshop(ws)}
-                  disabled={isSoldOut}
-                  aria-label={`Book spot for ${ws.title}`}
-                  className={`w-full md:w-auto min-h-[44px] px-6 py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer ${
-                    isSoldOut
-                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200'
-                      : 'bg-[#1B4332] hover:bg-[#2D6A4F] text-white hover:shadow hover:scale-[1.02] active:scale-[0.98]'
-                  }`}
-                >
-                  <span>{isSoldOut ? 'Session Full' : 'Book This'}</span>
-                  {!isSoldOut && <ArrowRight className="w-4 h-4 shrink-0" />}
-                </button>
+              {/* Mobile Layout (Stacked & Clean) */}
+              <div className="lg:hidden space-y-3.5">
+                {/* Top: Index, Date & Status Badge */}
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-xs font-bold text-stone-400">
+                      {sessionIndex}
+                    </span>
+                    <span className="font-mono text-sm font-bold text-[#1A1A1A]">
+                      {dateMeta.fullFormatted}
+                    </span>
+                    <span className="text-stone-300">•</span>
+                    <span className="font-mono text-xs text-stone-500">
+                      {ws.start_time} – {ws.end_time}
+                    </span>
+                  </div>
+
+                  <span
+                    className={`inline-block px-2 py-0.5 rounded text-[10px] font-mono font-medium border ${
+                      isSoldOut
+                        ? 'bg-stone-100 text-stone-500 border-stone-300'
+                        : 'bg-emerald-50 text-emerald-900 border-emerald-200'
+                    }`}
+                  >
+                    {isSoldOut ? 'Full' : `${ws.remaining_seats} spots`}
+                  </span>
+                </div>
+
+                {/* Middle: Title & Description */}
+                <div className="space-y-1">
+                  <h3 className="text-sm font-bold text-[#1A1A1A] leading-snug">
+                    {ws.title}
+                  </h3>
+                  <p className="text-xs text-stone-600 leading-relaxed">
+                    {ws.description}
+                  </p>
+                </div>
+
+                {/* Bottom: Free Notice & Full-width Button */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
+                  <span className="text-[11px] text-stone-500 flex items-center gap-1.5">
+                    <CheckCircle className="w-3.5 h-3.5 text-[#2D4A3E]" />
+                    <span>Free community coaching &amp; starter pots included</span>
+                  </span>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedWorkshop(ws)}
+                    disabled={isSoldOut}
+                    className={`w-full sm:w-auto h-11 px-6 text-xs font-semibold uppercase tracking-wider rounded-md transition-colors flex items-center justify-center gap-1.5 ${
+                      isSoldOut
+                        ? 'bg-stone-100 text-stone-400 border border-stone-200 cursor-not-allowed'
+                        : 'bg-[#2D4A3E] hover:bg-[#1E342B] text-white'
+                    }`}
+                  >
+                    <span>{isSoldOut ? 'Session Full' : 'Book This Saturday'}</span>
+                    {!isSoldOut && <ArrowUpRight className="w-4 h-4" />}
+                  </button>
+                </div>
               </div>
             </div>
           );
         })}
       </div>
 
-      {/* Modale interactive de réservation */}
+      {/* Booking Modal */}
       {selectedWorkshop && (
         <BookingModal
           workshops={workshops}

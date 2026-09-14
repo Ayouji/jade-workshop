@@ -12,12 +12,11 @@ import {
   MapPin,
   Phone,
   Mail,
-  ArrowRight,
+  ArrowUpRight,
   CheckCircle,
-  CheckCircle2,
   Award,
   Sprout,
-  Leaf,
+  Check,
 } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -98,14 +97,11 @@ async function loadWorkshops(): Promise<WorkshopWithAvailability[]> {
     const workshops = await getWorkshopsWithAvailability();
     return workshops.length > 0 ? workshops : DEMO_WORKSHOPS;
   } catch (error) {
-    console.warn('Chargement des ateliers de démonstration suite à une exception :', error);
+    console.warn('Loading fallback workshops due to database exception:', error);
     return DEMO_WORKSHOPS;
   }
 }
 
-/**
- * Helper dynamique calculant le mois et le rythme des ateliers actifs
- */
 function getScheduleMetadata(workshops: WorkshopWithAvailability[]) {
   if (!workshops || workshops.length === 0) {
     return {
@@ -117,7 +113,6 @@ function getScheduleMetadata(workshops: WorkshopWithAvailability[]) {
     };
   }
 
-  // Mois uniques parmi les ateliers disponibles
   const months = Array.from(
     new Set(
       workshops.map((w) => {
@@ -132,7 +127,6 @@ function getScheduleMetadata(workshops: WorkshopWithAvailability[]) {
     )
   );
 
-  // Vérifie si toutes les sessions se tiennent le samedi (Day 6)
   const allSaturdays = workshops.every((w) => {
     try {
       const [year, month, day] = w.date.split('-').map(Number);
@@ -181,82 +175,83 @@ export default async function HomePage() {
   const scheduleMeta = getScheduleMetadata(workshops);
 
   return (
-    <div className="min-h-screen bg-[#FBFBFA] text-[#0F172A] font-sans antialiased overflow-x-hidden selection:bg-[#1B4332] selection:text-white">
-      {/* ============================================================================== */}
-      {/* 1. NAVBAR - RESPONSIVE MOBILE-FIRST                                            */}
-      {/* ============================================================================== */}
+    <div className="min-h-screen bg-[#FBFBF9] text-[#1A1A1A] font-sans antialiased selection:bg-[#2D4A3E] selection:text-white">
+      {/* 1. NAVBAR */}
       <Navbar />
 
-      <main className="space-y-16 sm:space-y-24 md:space-y-32">
+      <main className="space-y-20 sm:space-y-28 lg:space-y-36 pb-20">
         {/* ============================================================================== */}
-        {/* 2. HERO SECTION - MOBILE-FIRST & DYNAMIC CADENCE                               */}
+        {/* 2. HERO SECTION — ASYMMETRICAL 12-COLUMN SWISS GRID                            */}
         {/* ============================================================================== */}
-        <section className="relative pt-6 sm:pt-10 md:pt-16 pb-4 overflow-hidden">
+        <section className="pt-8 sm:pt-14 lg:pt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
-              {/* Left Column: Stack vertically on mobile, left-align on lg */}
-              <div className="lg:col-span-6 space-y-5 sm:space-y-6 text-center lg:text-left flex flex-col items-center lg:items-start">
-                {/* Cadence Badge Dynamique */}
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1B4332]/10 text-[#1B4332] text-xs font-bold uppercase tracking-wider">
-                  <Calendar className="w-3.5 h-3.5 text-[#52B788] shrink-0" />
-                  <span>{scheduleMeta.cadenceText}</span>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+              {/* Left Block: col-span-7 */}
+              <div className="lg:col-span-7 space-y-6 sm:space-y-8">
+                {/* Tracked Meta Tag */}
+                <div className="flex items-center gap-2">
+                  <span className="inline-block w-2 h-2 rounded-full bg-[#2D4A3E]" />
+                  <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-widest text-stone-600">
+                    2026 Season • {scheduleMeta.cadenceText}
+                  </span>
                 </div>
 
-                {/* Title */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-black text-[#0F172A] tracking-tight leading-[1.15]">
-                  Seasonal Gardening Basics
+                {/* Bold Display Headline (Swiss Stark Typography) */}
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[68px] font-extrabold text-[#1A1A1A] tracking-tight leading-[1.05]">
+                  Seasonal Gardening Basics.
                 </h1>
 
-                {/* Subtitle / Hero Description */}
-                <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-lg leading-relaxed font-normal">
-                  Learn to plant and nurture your own herbs and vegetables.
+                {/* Authoritative Subtitle */}
+                <p className="text-base sm:text-lg md:text-xl text-stone-600 max-w-xl leading-relaxed">
+                  Learn to plant and nurture your own herbs and vegetables. Free community gardening coaching led by local grower Jade Belstead.
                 </p>
 
-                {/* Practical Quick Info Pills */}
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 text-xs text-slate-600 font-medium w-full">
-                  <span className="flex items-center gap-1.5 bg-white px-3 py-2 rounded-full border border-gray-200/80 shadow-xs">
-                    <Clock className="w-3.5 h-3.5 text-[#1B4332] shrink-0" />
-                    10:00 AM – 12:30 PM
-                  </span>
-                  <span className="flex items-center gap-1.5 bg-white px-3 py-2 rounded-full border border-gray-200/80 shadow-xs">
-                    <MapPin className="w-3.5 h-3.5 text-[#52B788] shrink-0" />
-                    Community Garden, Kingston
-                  </span>
-                  <span className="flex items-center gap-1.5 bg-emerald-50 text-emerald-800 px-3 py-2 rounded-full font-bold">
-                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
-                    Free No-Payment Booking
-                  </span>
+                {/* Tabular Specifications Matrix */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-px bg-[#E5E5E0] border border-[#E5E5E0] rounded-md overflow-hidden text-xs">
+                  <div className="bg-white p-3 sm:p-4 space-y-0.5">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-stone-400 block">Schedule</span>
+                    <span className="font-mono font-bold text-[#1A1A1A] block">Saturdays, 10:00 – 12:30</span>
+                  </div>
+                  <div className="bg-white p-3 sm:p-4 space-y-0.5">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-stone-400 block">Location</span>
+                    <span className="font-mono font-bold text-[#1A1A1A] block">Kingston Greenhouse</span>
+                  </div>
+                  <div className="bg-white p-3 sm:p-4 space-y-0.5 col-span-2 sm:col-span-1">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-stone-400 block">Admission</span>
+                    <span className="font-mono font-bold text-[#2D4A3E] block">100% Free • Tools Provided</span>
+                  </div>
                 </div>
 
-                {/* Primary & Secondary Call to Actions */}
-                <div className="pt-2 w-full">
+                {/* CTA Action */}
+                <div className="pt-2">
                   <HeroBookingCta
                     workshops={workshops}
                     ctaLabel={scheduleMeta.heroCtaText}
-                    scheduleLabel="View Schedule"
+                    scheduleLabel="View Full Schedule"
                   />
                 </div>
               </div>
 
-              {/* Right Column: Hero Visual Asset (Fluid & non-overflowing) */}
-              <div className="lg:col-span-6 relative flex justify-center items-center w-full">
-                <div className="relative w-full max-w-[480px] lg:max-w-[540px] aspect-[4/3] sm:aspect-square rounded-2xl sm:rounded-3xl md:rounded-[36px] overflow-hidden shadow-xl sm:shadow-2xl bg-white border-2 sm:border-4 border-white">
+              {/* Right Block: col-span-5 (Authentic Hands-on Workshop Visual) */}
+              <div className="lg:col-span-5 relative lg:pt-1">
+                <div className="relative aspect-[4/3] sm:aspect-[5/4] rounded-lg overflow-hidden border border-[#E5E5E0] bg-white shadow-2xs">
                   <Image
-                    src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1200&q=80"
-                    alt="Hands planting aromatic kitchen herbs in organic soil"
+                    src="/hero_gardening.jpg"
+                    alt="Hands planting aromatic culinary herbs and vegetable seedlings in organic greenhouse"
                     fill
                     priority
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 540px"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 45vw, 540px"
                     className="object-cover"
                   />
-                  {/* Floating Inset Badge: Safe bounds preventing mobile blowout */}
-                  <div className="absolute bottom-3 sm:bottom-5 left-3 right-3 sm:left-5 sm:right-5 bg-white/95 backdrop-blur-md p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 flex items-center gap-3">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#1B4332] text-white flex items-center justify-center shrink-0">
-                      <Sprout className="w-4 h-4 sm:w-5 sm:h-5 text-[#52B788]" />
+
+                  {/* Clean Inset Value Badge */}
+                  <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 bg-white/95 backdrop-blur-sm p-3 rounded-md border border-[#E5E5E0] flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-md bg-[#2D4A3E] text-white flex items-center justify-center shrink-0">
+                      <Sprout className="w-4 h-4 text-emerald-300" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-xs font-bold text-[#0F172A] truncate">All Supplies Provided Free</p>
-                      <p className="text-[11px] text-slate-500 truncate">Seeds, organic potting mix &amp; starter pots</p>
+                      <p className="text-xs font-bold text-[#1A1A1A] truncate leading-tight">All Supplies Provided Free</p>
+                      <p className="text-[11px] text-stone-500 truncate mt-0.5">Seeds, organic potting mix &amp; starter pots to take home</p>
                     </div>
                   </div>
                 </div>
@@ -266,254 +261,242 @@ export default async function HomePage() {
         </section>
 
         {/* ============================================================================== */}
-        {/* 3. UPPER ACTIVE LIST SCHEDULE - DYNAMIC & ADAPTIVE                             */}
+        {/* 3. SCHEDULE SECTION (02 / SCHEDULE) — TABULAR LAYOUT                           */}
         {/* ============================================================================== */}
-        <section id="schedule" className="py-8 sm:py-12 border-t border-gray-200/60 scroll-mt-20">
+        <section id="schedule" className="pt-12 sm:pt-16 border-t border-[#E5E5E0] scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 space-y-8 sm:space-y-12">
-            {/* Header: Adapté dynamiquement */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 border-b border-gray-200/80 pb-6 text-left">
-              <div className="space-y-2 max-w-xl">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1B4332]/10 text-[#1B4332] text-xs font-bold uppercase tracking-wider">
-                  <Calendar className="w-3.5 h-3.5 text-[#52B788] shrink-0" />
-                  <span>Official {scheduleMeta.monthLabel} Schedule</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0F172A] tracking-tight leading-tight">
-                  {scheduleMeta.sectionTitle}
+            {/* Header: 12-column grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end pb-4">
+              <div className="lg:col-span-6 space-y-2">
+                <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#2D4A3E]">
+                  02 / Schedule
+                </span>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#1A1A1A] tracking-tight">
+                  {scheduleMeta.sectionTitle}.
                 </h2>
               </div>
-              <div className="max-w-md">
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Join Jade Belstead at the community greenhouse every Saturday from <strong>10:00 AM to 12:30 PM</strong>. Each session holds up to 10 participants for personalized coaching.
+              <div className="lg:col-span-6">
+                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-lg">
+                  Each session holds up to 10 participants for focused, hands-on guidance. All starter pots, seeds, and organic potting mix are provided free of charge.
                 </p>
               </div>
             </div>
 
-            {/* Interactive October Schedule list with Book This full-width mobile buttons */}
+            {/* Tabular List of Sessions */}
             <OctoberSchedule workshops={workshops} />
           </div>
         </section>
 
         {/* ============================================================================== */}
-        {/* 4. NEW STATIC SECTION: "YOUR WORKSHOP EXPERIENCE & WHAT YOU GET"              */}
+        {/* 4. CURRICULUM SECTION (03 / CURRICULUM) — 6-ITEM VALUE MATRIX                  */}
         {/* ============================================================================== */}
-        <section id="experience" className="py-12 sm:py-16 border-t border-gray-200/60 bg-[#F4F7F3]/60 rounded-2xl sm:rounded-3xl scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-              {/* Text & Bullets */}
-              <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-left">
-                {/* Sub-Header Requis */}
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1B4332]/10 text-[#1B4332] text-xs font-bold uppercase tracking-wider">
-                  <Sprout className="w-3.5 h-3.5 text-[#52B788] shrink-0" />
-                  <span>A Foundation for Seasonal Success</span>
-                </div>
-
-                {/* Titre Requis */}
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-extrabold text-[#0F172A] tracking-tight leading-snug">
-                  Your Workshop Experience &amp; What You Get
+        <section id="experience" className="pt-12 sm:pt-16 border-t border-[#E5E5E0] scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 space-y-10 sm:space-y-14">
+            {/* Section Header */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
+              <div className="lg:col-span-6 space-y-2">
+                <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#2D4A3E]">
+                  03 / Curriculum
+                </span>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#1A1A1A] tracking-tight">
+                  A Foundation for Seasonal Success.
                 </h2>
-
-                {/* Main Body Text Requis */}
-                <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
-                  Your workshop journey is a complete experience, not a series of disconnected topics. We cover the full spectrum of successful seasonal gardening—from preparing your soil and starting seeds to mastering compost, natural pest control, and preparing for winter. Every Saturday, you will receive expert, personalized coaching with plenty of hands-on planting practice, ensuring you can confidently nurture your own herbs and vegetables all season long.
+              </div>
+              <div className="lg:col-span-6">
+                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-lg">
+                  A coherent educational series covering the complete lifecycle from soil biology to cold-season protection. Gain practical confidence in real dirt.
                 </p>
+              </div>
+            </div>
 
-                {/* Bulleted List of Key Value Propositions with CheckCircle */}
-                <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                  <div className="flex items-start gap-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-gray-100 shadow-xs">
-                    <CheckCircle className="w-5 h-5 text-[#52B788] shrink-0 mt-0.5" />
-                    <span className="text-xs sm:text-sm font-semibold text-slate-800">
-                      Full Lifecycle Coverage: Soil to Harvest
-                    </span>
-                  </div>
-
-                  <div className="flex items-start gap-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-gray-100 shadow-xs">
-                    <CheckCircle className="w-5 h-5 text-[#52B788] shrink-0 mt-0.5" />
-                    <span className="text-xs sm:text-sm font-semibold text-slate-800">
-                      Hands-On Seed Starting &amp; Container Skills
-                    </span>
-                  </div>
-
-                  <div className="flex items-start gap-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-gray-100 shadow-xs">
-                    <CheckCircle className="w-5 h-5 text-[#52B788] shrink-0 mt-0.5" />
-                    <span className="text-xs sm:text-sm font-semibold text-slate-800">
-                      Master Organic Composting for Thriving Soil
-                    </span>
-                  </div>
-
-                  <div className="flex items-start gap-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-gray-100 shadow-xs">
-                    <CheckCircle className="w-5 h-5 text-[#52B788] shrink-0 mt-0.5" />
-                    <span className="text-xs sm:text-sm font-semibold text-slate-800">
-                      Identify and Implement Natural Pest Control
-                    </span>
-                  </div>
-
-                  <div className="flex items-start gap-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-gray-100 shadow-xs">
-                    <CheckCircle className="w-5 h-5 text-[#52B788] shrink-0 mt-0.5" />
-                    <span className="text-xs sm:text-sm font-semibold text-slate-800">
-                      Essential Winter Prep &amp; Nurturing Advice
-                    </span>
-                  </div>
-
-                  <div className="flex items-start gap-3 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-gray-100 shadow-xs">
-                    <CheckCircle className="w-5 h-5 text-[#52B788] shrink-0 mt-0.5" />
-                    <span className="text-xs sm:text-sm font-semibold text-slate-800">
-                      Confident Herb and Vegetable Gardening
-                    </span>
-                  </div>
-                </div>
+            {/* 6 Structured Matrix Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#E5E5E0] border border-[#E5E5E0] rounded-lg overflow-hidden">
+              {/* Module 01 */}
+              <div className="bg-white p-6 sm:p-7 space-y-3">
+                <span className="font-mono text-xs font-bold text-stone-400 block">01</span>
+                <h3 className="text-sm sm:text-base font-bold text-[#1A1A1A]">
+                  Soil Preparation &amp; Health
+                </h3>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  Understand aeration, soil structure, microbial ecosystems, and organic soil amendments for containers and raised beds.
+                </p>
               </div>
 
-              {/* Right Visual Image */}
-              <div className="lg:col-span-5 relative w-full">
-                <div className="relative aspect-[4/3] sm:aspect-[4/5] rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl bg-white border-2 sm:border-4 border-white mx-auto max-w-lg lg:max-w-none">
-                  <Image
-                    src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1200&q=80"
-                    alt="Lush community garden bed with thriving herbs and vegetables"
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 480px"
-                    className="object-cover"
-                  />
-                  <div className="absolute bottom-3 sm:bottom-5 left-3 right-3 sm:left-5 sm:right-5 bg-white/95 backdrop-blur-md p-3.5 sm:p-4 rounded-xl sm:rounded-2xl shadow-lg border border-gray-100">
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#1B4332] text-white flex items-center justify-center shrink-0">
-                        <Leaf className="w-4 h-4 sm:w-5 sm:h-5 text-[#52B788]" />
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-xs font-bold text-[#0F172A] truncate">Real Dirt &amp; Practice</p>
-                        <p className="text-[11px] text-slate-500 truncate">Take home starter pots from every session</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              {/* Module 02 */}
+              <div className="bg-white p-6 sm:p-7 space-y-3">
+                <span className="font-mono text-xs font-bold text-stone-400 block">02</span>
+                <h3 className="text-sm sm:text-base font-bold text-[#1A1A1A]">
+                  Seed Starting &amp; Propagation
+                </h3>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  Master seed depth, germination conditions, root aeration, and potting technique. Take home fresh starter pots every session.
+                </p>
+              </div>
+
+              {/* Module 03 */}
+              <div className="bg-white p-6 sm:p-7 space-y-3">
+                <span className="font-mono text-xs font-bold text-stone-400 block">03</span>
+                <h3 className="text-sm sm:text-base font-bold text-[#1A1A1A]">
+                  Organic Composting Methods
+                </h3>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  Learn proper green-to-brown ratios, temperature monitoring, and converting food scraps into mineral-rich garden compost.
+                </p>
+              </div>
+
+              {/* Module 04 */}
+              <div className="bg-white p-6 sm:p-7 space-y-3">
+                <span className="font-mono text-xs font-bold text-stone-400 block">04</span>
+                <h3 className="text-sm sm:text-base font-bold text-[#1A1A1A]">
+                  Autumn Vegetable Planting
+                </h3>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  Plant hearty cool-weather crops: winter lettuces, kale, radishes, garlic, and overwintering culinary alliums.
+                </p>
+              </div>
+
+              {/* Module 05 */}
+              <div className="bg-white p-6 sm:p-7 space-y-3">
+                <span className="font-mono text-xs font-bold text-stone-400 block">05</span>
+                <h3 className="text-sm sm:text-base font-bold text-[#1A1A1A]">
+                  Natural Pest Management
+                </h3>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  Protect plants using companion planting, beneficial insect habitats, and non-toxic horticultural barriers.
+                </p>
+              </div>
+
+              {/* Module 06 */}
+              <div className="bg-white p-6 sm:p-7 space-y-3">
+                <span className="font-mono text-xs font-bold text-stone-400 block">06</span>
+                <h3 className="text-sm sm:text-base font-bold text-[#1A1A1A]">
+                  Winter Prep &amp; Herb Drying
+                </h3>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  Techniques for drying perennial herbs, applying insulating mulch, and sheltering soil beds for spring vitality.
+                </p>
               </div>
             </div>
           </div>
         </section>
 
         {/* ============================================================================== */}
-        {/* 5. BOTTOM STATIC SECTION: "INSTRUCTOR & COMMUNITY IMPACT"                      */}
+        {/* 5. INSTRUCTOR & COMMUNITY IMPACT (04 / INSTRUCTOR)                             */}
         {/* ============================================================================== */}
-        <section id="instructor-impact" className="py-8 sm:py-12 border-t border-gray-200/60 scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 space-y-12 sm:space-y-16">
-            {/* Instructor Profile Block */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
-              {/* Photo de Jade Belstead avec Highlight Tag Flottant sécurisé contre l'overflow */}
-              <div className="lg:col-span-5 relative mx-auto w-full max-w-sm sm:max-w-md lg:max-w-none">
-                <div className="relative aspect-square rounded-2xl sm:rounded-3xl md:rounded-[36px] overflow-hidden shadow-xl bg-white border-2 sm:border-4 border-white">
+        <section id="instructor-impact" className="pt-12 sm:pt-16 border-t border-[#E5E5E0] scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 space-y-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+              {/* Photo Frame (Col-span-5) */}
+              <div className="lg:col-span-5">
+                <div className="relative aspect-square rounded-lg overflow-hidden border border-[#E5E5E0] bg-white shadow-2xs">
                   <Image
-                    src="https://images.unsplash.com/photo-1592417817098-8f3d69102a56?auto=format&fit=crop&w=1200&q=80"
-                    alt="Jade Belstead in a vibrant community vegetable garden"
+                    src="/jade_instructor.jpg"
+                    alt="Jade Belstead in a vibrant community vegetable garden in Kingston, NY"
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 45vw, 450px"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 45vw, 500px"
                     className="object-cover"
                   />
-                </div>
 
-                {/* Highlight Tag Requis: "10+ Years Community Experience" - Mobile Safe bounds */}
-                <div className="absolute bottom-3 right-3 sm:top-8 sm:-right-4 sm:bottom-auto bg-white/95 backdrop-blur-md p-3 sm:p-4 md:p-5 rounded-2xl sm:rounded-[28px] shadow-xl border border-[#52B788]/30 flex items-center gap-3">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#1B4332] text-white flex items-center justify-center shrink-0 shadow-sm">
-                    <Award className="w-5 h-5 sm:w-6 sm:h-6 text-[#52B788]" />
-                  </div>
-                  <div>
-                    <span className="text-xl sm:text-2xl font-black text-[#0F172A] leading-tight block">
-                      10+ Years
+                  {/* Clean verified highlight tag */}
+                  <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 bg-white/95 backdrop-blur-sm p-3 rounded-md border border-[#E5E5E0] flex items-center justify-between text-xs">
+                    <span className="font-bold text-[#1A1A1A] flex items-center gap-1.5">
+                      <Award className="w-4 h-4 text-[#2D4A3E]" />
+                      <span>10+ Years Community Experience</span>
                     </span>
-                    <span className="text-[11px] sm:text-xs text-slate-600 font-bold block">
-                      Community Experience
-                    </span>
+                    <span className="text-[11px] font-mono text-stone-500">Kingston, NY</span>
                   </div>
                 </div>
               </div>
 
-              {/* Bio Content */}
-              <div className="lg:col-span-7 space-y-4 sm:space-y-6 lg:pl-4 text-left">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#52B788]">
-                  Instructor &amp; Community Impact
-                </span>
+              {/* Bio & Authority (Col-span-7) */}
+              <div className="lg:col-span-7 space-y-6">
+                <div className="space-y-2">
+                  <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#2D4A3E]">
+                    04 / Instructor
+                  </span>
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#1A1A1A] tracking-tight">
+                    Meet Jade Belstead.
+                  </h2>
+                </div>
 
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0F172A] tracking-tight leading-snug">
-                  Meet Jade Belstead
-                </h2>
+                {/* Formal Bio Quote */}
+                <blockquote className="text-base sm:text-lg text-stone-800 font-medium leading-relaxed border-l-2 border-[#2D4A3E] pl-4 py-1">
+                  &ldquo;Experienced local hobby gardener with ten years of community project involvement.&rdquo;
+                </blockquote>
 
-                {/* Bio Requis */}
-                <p className="text-slate-700 text-sm sm:text-base md:text-lg leading-relaxed font-medium">
-                  &quot;Experienced local hobby gardener with ten years of community project involvement.&quot;
+                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                  Jade has coordinated neighborhood garden allotments, schoolyard compost initiatives, and urban greening drives across Kingston. Her coaching methodology is rooted in practical, non-intimidating dirt work—enabling complete beginners, apartment renters, and balcony growers to produce flourishing harvests.
                 </p>
 
-                <p className="text-slate-600 text-xs sm:text-sm md:text-base leading-relaxed">
-                  Jade has spearheaded neighborhood allotment gardens, school greening projects, and seasonal compost workshops across Kingston. Her teaching approach is warm, practical, and grounded in real dirt—making organic food growing approachable for complete beginners and apartment dwellers alike.
-                </p>
+                {/* 3 Principles */}
+                <div className="space-y-2.5 pt-2 text-xs font-medium text-stone-800">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-4 h-4 rounded bg-[#2D4A3E] text-white flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3" />
+                    </div>
+                    <span>100% Organic, pesticide-free horticultural methods</span>
+                  </div>
 
-                {/* 3 Bullet Points Chaleureux */}
-                <ul className="space-y-2.5 sm:space-y-3 pt-1 text-xs sm:text-sm font-semibold text-[#0F172A]">
-                  <li className="flex items-center gap-2.5 sm:gap-3">
-                    <div className="w-5 h-5 rounded-full bg-[#1B4332] text-white flex items-center justify-center shrink-0">
-                      <div className="w-2 h-2 rounded-full bg-[#52B788]" />
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-4 h-4 rounded bg-[#2D4A3E] text-white flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3" />
                     </div>
-                    <span>100% Organic &amp; Permaculture-Inspired Methods</span>
-                  </li>
-                  <li className="flex items-center gap-2.5 sm:gap-3">
-                    <div className="w-5 h-5 rounded-full bg-[#1B4332] text-white flex items-center justify-center shrink-0">
-                      <div className="w-2 h-2 rounded-full bg-[#52B788]" />
+                    <span>Direct tactile practice: seed propagation, compost aeration &amp; root pruning</span>
+                  </div>
+
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-4 h-4 rounded bg-[#2D4A3E] text-white flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3" />
                     </div>
-                    <span>Hands-On Soil, Seed Starting &amp; Container Techniques</span>
-                  </li>
-                  <li className="flex items-center gap-2.5 sm:gap-3">
-                    <div className="w-5 h-5 rounded-full bg-[#1B4332] text-white flex items-center justify-center shrink-0">
-                      <div className="w-2 h-2 rounded-full bg-[#52B788]" />
-                    </div>
-                    <span>Inclusive Neighborhood Community &amp; Ongoing Tips</span>
-                  </li>
-                </ul>
+                    <span>Supportive neighborhood community with follow-up planting tips</span>
+                  </div>
+                </div>
 
                 <div className="pt-2">
                   <a
                     href="#schedule"
-                    className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center px-8 py-3.5 bg-[#1B4332] hover:bg-[#2D6A4F] text-white font-bold rounded-full text-xs sm:text-sm transition-all shadow-md"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#2D4A3E] hover:text-[#1E342B] border-b border-[#2D4A3E] pb-0.5"
                   >
-                    View {scheduleMeta.monthLabel} Workshop Sessions
+                    <span>View Session Dates</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
                   </a>
                 </div>
               </div>
             </div>
 
-            {/* Testimonials / Community Feedback */}
-            <div className="pt-8 sm:pt-10 border-t border-gray-200/60">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
-                <div className="lg:col-span-5 space-y-2 sm:space-y-3 text-left">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#52B788]">
-                    Voices From The Garden
+            {/* Testimonials (05 / VOICES) */}
+            <div className="pt-8 border-t border-[#E5E5E0]">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <div className="lg:col-span-4 space-y-1.5">
+                  <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#2D4A3E]">
+                    05 / Community
                   </span>
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-[#0F172A] tracking-tight">
-                    Loved by Local Kingston Gardeners
+                  <h3 className="text-xl sm:text-2xl font-bold text-[#1A1A1A] tracking-tight">
+                    Participant Feedback.
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    Neighbors and beginners who turned their balconies and backyards into flourishing green spaces through Jade&apos;s workshops.
+                  <p className="text-xs text-stone-600 leading-relaxed">
+                    Notes from neighbors who joined Jade&apos;s previous greenhouse sessions.
                   </p>
                 </div>
 
-                <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                  {/* Testimonial 1 */}
-                  <div className="bg-[#1B4332] text-white rounded-2xl sm:rounded-[24px] p-5 sm:p-6 relative overflow-hidden shadow-lg space-y-3">
-                    <span className="text-2xl sm:text-3xl font-serif text-emerald-200/70 block">“</span>
-                    <p className="text-xs sm:text-sm text-emerald-100 leading-relaxed">
-                      &quot;I used to kill every supermarket herb I bought. Jade showed us how to prune roots, aerate soil, and water correctly. My kitchen smells amazing!&quot;
+                <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="bg-white p-5 sm:p-6 rounded-lg border border-[#E5E5E0] space-y-3">
+                    <p className="text-xs sm:text-sm text-stone-700 leading-relaxed italic">
+                      &ldquo;I used to kill every supermarket herb I bought. Jade showed us how to prune roots, aerate soil, and water correctly. My windowsill has never looked better.&rdquo;
                     </p>
-                    <div className="pt-2 border-t border-white/10">
-                      <p className="font-bold text-xs sm:text-sm text-white">Clara Dupuis</p>
-                      <p className="text-[11px] text-emerald-200/80">Balcony Gardener, Kingston</p>
+                    <div className="pt-2 border-t border-[#E5E5E0] text-[11px] font-mono">
+                      <span className="font-bold text-[#1A1A1A] block">Clara Dupuis</span>
+                      <span className="text-stone-400">Balcony Gardener, Kingston</span>
                     </div>
                   </div>
 
-                  {/* Testimonial 2 */}
-                  <div className="bg-[#1B4332] text-white rounded-2xl sm:rounded-[24px] p-5 sm:p-6 relative overflow-hidden shadow-lg space-y-3">
-                    <span className="text-2xl sm:text-3xl font-serif text-emerald-200/70 block">“</span>
-                    <p className="text-xs sm:text-sm text-emerald-100 leading-relaxed">
-                      &quot;Jade&apos;s 10 years of community experience clearly shows. The compost and soil biology session completely changed how I look at organic waste.&quot;
+                  <div className="bg-white p-5 sm:p-6 rounded-lg border border-[#E5E5E0] space-y-3">
+                    <p className="text-xs sm:text-sm text-stone-700 leading-relaxed italic">
+                      &ldquo;Jade&apos;s 10 years of community experience clearly shows. The compost and soil biology session completely changed how I look at organic kitchen waste.&rdquo;
                     </p>
-                    <div className="pt-2 border-t border-white/10">
-                      <p className="font-bold text-xs sm:text-sm text-white">Marc Henderson</p>
-                      <p className="text-[11px] text-emerald-200/80">Allotment Volunteer</p>
+                    <div className="pt-2 border-t border-[#E5E5E0] text-[11px] font-mono">
+                      <span className="font-bold text-[#1A1A1A] block">Marc Henderson</span>
+                      <span className="text-stone-400">Allotment Volunteer, Kingston</span>
                     </div>
                   </div>
                 </div>
@@ -523,85 +506,138 @@ export default async function HomePage() {
         </section>
 
         {/* ============================================================================== */}
-        {/* 6. CONTACT & NEWSLETTER SECTION                                                */}
+        {/* 6. CONTACT & LOCATION (06 / CONTACT)                                           */}
         {/* ============================================================================== */}
-        <section id="contact-us" className="py-8 sm:py-12 border-t border-gray-200/60 scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 space-y-8 sm:space-y-12">
-            <div className="text-center max-w-2xl mx-auto space-y-2 sm:space-y-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#52B788]">
-                Get In Touch
+        <section id="contact-us" className="pt-12 sm:pt-16 border-t border-[#E5E5E0] scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 space-y-10 sm:space-y-12">
+            <div className="space-y-2">
+              <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#2D4A3E]">
+                06 / Location &amp; Contact
               </span>
-              <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-[#0F172A] tracking-tight">
-                Connect with Jade
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#1A1A1A] tracking-tight">
+                Connect with Jade.
               </h2>
-              <p className="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed">
-                Have questions regarding upcoming sessions, accessibility at the garden, or private group bookings? Drop us a message anytime.
+              <p className="text-xs sm:text-sm text-stone-600 max-w-lg leading-relaxed">
+                Have questions about workshop logistics, accessibility, or private group bookings? Get in touch directly.
               </p>
             </div>
 
-            {/* 3 Contact Cards: 1 col on mobile, 3 cols on lg */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-              {/* Visit */}
-              <div className="bg-white p-5 sm:p-7 rounded-2xl sm:rounded-[28px] border border-gray-100 shadow-sm flex items-center gap-4 sm:gap-5 hover:shadow-md transition-all">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#1B4332] text-white flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5 text-[#52B788]" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-sm sm:text-base text-[#0F172A]">Location</h4>
-                  <p className="text-xs text-slate-500 mt-0.5">Kingston Community Greenhouse &amp; Gardens</p>
-                  <p className="text-xs text-slate-500">Kingston, New York 12401</p>
-                </div>
+            {/* 3 Contact Specification Cells */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#E5E5E0] border border-[#E5E5E0] rounded-lg overflow-hidden text-xs">
+              <div className="bg-white p-5 sm:p-6 space-y-1">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-stone-400 block">Greenhouse Location</span>
+                <span className="font-bold text-[#1A1A1A] block">Kingston Community Greenhouse</span>
+                <span className="text-stone-500 block">Kingston, New York 12401</span>
               </div>
 
-              {/* Call */}
-              <div className="bg-white p-5 sm:p-7 rounded-2xl sm:rounded-[28px] border border-gray-100 shadow-sm flex items-center gap-4 sm:gap-5 hover:shadow-md transition-all">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#1B4332] text-white flex items-center justify-center shrink-0">
-                  <Phone className="w-5 h-5 text-[#52B788]" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-sm sm:text-base text-[#0F172A]">Call / WhatsApp</h4>
-                  <p className="text-xs text-slate-500 mt-0.5">(555) 382-9102</p>
-                  <p className="text-xs text-slate-400">Tue – Sat, 9am to 5pm</p>
-                </div>
+              <div className="bg-white p-5 sm:p-6 space-y-1">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-stone-400 block">Telephone</span>
+                <span className="font-bold text-[#1A1A1A] block">(555) 382-9102</span>
+                <span className="text-stone-500 block">Tue – Sat, 9:00 AM to 5:00 PM</span>
               </div>
 
-              {/* Email */}
-              <div className="bg-white p-5 sm:p-7 rounded-2xl sm:rounded-[28px] border border-gray-100 shadow-sm flex items-center gap-4 sm:gap-5 hover:shadow-md transition-all">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#1B4332] text-white flex items-center justify-center shrink-0">
-                  <Mail className="w-5 h-5 text-[#52B788]" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-sm sm:text-base text-[#0F172A]">Email</h4>
-                  <p className="text-xs text-slate-500 mt-0.5">jade@gardeningbasics.local</p>
-                  <p className="text-xs text-slate-400">Direct response within 24h</p>
-                </div>
+              <div className="bg-white p-5 sm:p-6 space-y-1">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-stone-400 block">Email Inquiry</span>
+                <span className="font-bold text-[#1A1A1A] block">jade@gardeningbasics.local</span>
+                <span className="text-stone-500 block">Inquiries answered within 24 hours</span>
               </div>
             </div>
 
-            {/* Map & Newsletter */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-stretch">
-              {/* Map */}
-              <div className="bg-white rounded-2xl sm:rounded-[28px] overflow-hidden border border-gray-200/80 shadow-sm relative min-h-[300px] sm:min-h-[360px]">
-                <iframe
-                  title="Kingston Community Garden Location"
-                  src="https://maps.google.com/maps?hl=en&amp;q=kingston+ny+community+garden&amp;ie=UTF8&amp;t=&amp;z=13&amp;iwloc=B&amp;output=embed"
-                  className="w-full h-full border-0 absolute inset-0"
-                  allowFullScreen
-                  loading="lazy"
-                />
+            {/* Location Map & Newsletter Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+              {/* Location Guide Column (Col-span-6) */}
+              <div className="lg:col-span-6 bg-white rounded-lg border border-[#E5E5E0] p-6 sm:p-8 flex flex-col justify-between space-y-6">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#2D4A3E]" />
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#2D4A3E]">
+                        Workshop Location
+                      </span>
+                    </div>
+                    <span className="text-[10px] font-mono text-stone-500 uppercase tracking-wider">
+                      Kingston, NY 12401
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl sm:text-2xl font-bold text-[#1A1A1A] tracking-tight">
+                      Kingston Community Greenhouse &amp; Gardens
+                    </h3>
+                    <p className="text-xs sm:text-sm text-stone-600 mt-1 leading-relaxed">
+                      Located in the Midtown arts &amp; garden district. All seasonal workshops meet inside the solar greenhouse and adjacent organic raised beds.
+                    </p>
+                  </div>
+
+                  {/* Stylized Architectural Map Graphic */}
+                  <div className="relative h-44 rounded-md border border-[#E5E5E0] bg-[#F7F7F5] overflow-hidden flex items-center justify-center">
+                    {/* Grid Pattern Background */}
+                    <div className="absolute inset-0 opacity-40 bg-[linear-gradient(to_right,#E5E5E0_1px,transparent_1px),linear-gradient(to_bottom,#E5E5E0_1px,transparent_1px)] bg-[size:24px_24px]" />
+
+                    {/* Abstract Geographic Lines */}
+                    <svg className="absolute inset-0 w-full h-full stroke-stone-300 fill-none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M-20 40 Q 120 70, 240 40 T 500 80" strokeWidth="2.5" stroke="#D4D4D0" />
+                      <path d="M60 -20 Q 90 100, 110 200" strokeWidth="1.5" stroke="#E0E0DC" />
+                      <path d="M260 -10 Q 230 90, 270 200" strokeWidth="2" stroke="#D4D4D0" />
+                      <path d="M-10 120 Q 150 140, 450 110" strokeWidth="1.5" stroke="#E0E0DC" />
+                    </svg>
+
+                    {/* Community Greenhouse Pin */}
+                    <div className="relative z-10 flex flex-col items-center">
+                      <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#2D4A3E] text-white shadow-md border border-emerald-900/30">
+                        <MapPin className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
+                        <span className="text-xs font-bold tracking-tight">Community Greenhouse</span>
+                      </div>
+                      <div className="w-2 h-2 rotate-45 bg-[#2D4A3E] -mt-1" />
+                      <div className="w-2 h-2 rounded-full bg-emerald-500 ring-4 ring-emerald-500/20 mt-0.5" />
+                    </div>
+
+                    <span className="absolute bottom-2 right-2 text-[10px] font-mono text-stone-500 bg-white/90 px-2 py-0.5 rounded border border-[#E5E5E0]">
+                      41.9325° N, 74.0000° W
+                    </span>
+                  </div>
+
+                  {/* Visitor Information Specs */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-mono">
+                    <div className="p-2.5 bg-stone-50 rounded border border-[#E5E5E0] space-y-0.5">
+                      <span className="text-stone-400 uppercase text-[10px] block">Parking</span>
+                      <span className="text-[#1A1A1A] font-medium block">Free on-site gravel lot + street</span>
+                    </div>
+                    <div className="p-2.5 bg-stone-50 rounded border border-[#E5E5E0] space-y-0.5">
+                      <span className="text-stone-400 uppercase text-[10px] block">Accessibility</span>
+                      <span className="text-[#1A1A1A] font-medium block">Level stone paths &amp; raised beds</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="pt-3 border-t border-[#E5E5E0] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                  <span className="text-xs text-stone-500 font-mono">
+                    Gates open at 9:30 AM on Saturdays
+                  </span>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Kingston+Community+Greenhouse+Kingston+NY"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-1.5 h-10 px-4 bg-[#2D4A3E] hover:bg-[#1E342B] text-white text-xs font-semibold uppercase tracking-wider rounded-md transition-colors shadow-2xs"
+                  >
+                    <span>Open in Google Maps</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                </div>
               </div>
 
-              {/* Newsletter Form Container */}
-              <div className="bg-white rounded-2xl sm:rounded-[28px] p-6 sm:p-8 md:p-12 border border-gray-200/80 shadow-sm space-y-4 sm:space-y-6 flex flex-col justify-center">
-                <div className="text-center space-y-2">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-full bg-[#1B4332]/10 text-[#1B4332] flex items-center justify-center">
-                    <Sprout className="w-5 h-5 sm:w-6 sm:h-6 text-[#52B788]" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-[#0F172A]">
-                    Seasonal Garden Tips
+              {/* Newsletter Column (Col-span-6) */}
+              <div className="lg:col-span-6 bg-white rounded-lg border border-[#E5E5E0] p-6 sm:p-8 flex flex-col justify-center space-y-5">
+                <div className="space-y-1">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#2D4A3E]">
+                    Monthly Bulletin
+                  </span>
+                  <h3 className="text-lg sm:text-xl font-bold text-[#1A1A1A] tracking-tight">
+                    Seasonal Garden Tips &amp; Priority Booking
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-500 max-w-sm mx-auto leading-relaxed">
-                    Subscribe to receive Jade&apos;s monthly planting calendar and first access to new seasonal workshop dates.
+                  <p className="text-xs text-stone-600 leading-relaxed">
+                    Subscribe to receive Jade&apos;s monthly regional planting calendar and first access when new free dates are added.
                   </p>
                 </div>
 
@@ -613,91 +649,70 @@ export default async function HomePage() {
       </main>
 
       {/* ============================================================================== */}
-      {/* 7. FOOTER                                                                      */}
+      {/* 7. FOOTER — MATHEMATICAL 12-COLUMN SWISS FOOTER                                */}
       {/* ============================================================================== */}
-      <footer className="bg-[#F4F7F3] text-slate-700 pt-12 sm:pt-16 pb-10 sm:pb-12 border-t border-gray-200/70">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 pb-10 sm:pb-12 border-b border-gray-200/70">
-          {/* Col 1 */}
-          <div className="space-y-3 sm:space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-[#1B4332] text-white flex items-center justify-center shadow-sm">
-                <Sprout className="w-4 h-4 text-[#52B788]" />
-              </div>
-              <span className="font-black text-lg sm:text-xl text-[#0F172A] tracking-tight">
-                Seasonal Gardening
+      <footer className="border-t border-[#E5E5E0] bg-[#FBFBF9] py-12 sm:py-16 text-xs text-stone-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 space-y-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 pb-8 border-b border-[#E5E5E0]">
+            {/* Col 1 */}
+            <div className="lg:col-span-4 space-y-2.5">
+              <span className="font-extrabold text-sm uppercase tracking-tight text-[#1A1A1A] block">
+                Jade Belstead
               </span>
+              <p className="text-xs text-stone-500 leading-relaxed max-w-sm">
+                Seasonal Gardening Basics. Hands-on organic gardening coaching hosted at the Kingston Community Greenhouse. All materials provided free.
+              </p>
             </div>
-            <p className="text-xs text-slate-500 leading-relaxed max-w-xs">
-              Learn to plant and nurture your own herbs and vegetables. Community workshops hosted by Jade Belstead.
-            </p>
 
-            <div className="flex items-center gap-3 pt-1">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-[#1B4332] text-white flex items-center justify-center hover:bg-[#2D6A4F] transition-colors"
-                aria-label="Instagram"
-              >
-                <span className="text-xs font-bold">ig</span>
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-[#1B4332] text-white flex items-center justify-center hover:bg-[#2D6A4F] transition-colors"
-                aria-label="Facebook"
-              >
-                <span className="text-xs font-bold">fb</span>
-              </a>
+            {/* Col 2 */}
+            <div className="lg:col-span-3 space-y-2">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-400 block">
+                Navigation
+              </span>
+              <ul className="space-y-1.5 font-medium">
+                <li><a href="#schedule" className="hover:text-[#1A1A1A] transition-colors">Schedule</a></li>
+                <li><a href="#experience" className="hover:text-[#1A1A1A] transition-colors">Curriculum</a></li>
+                <li><a href="#instructor-impact" className="hover:text-[#1A1A1A] transition-colors">Instructor</a></li>
+                <li><a href="#contact-us" className="hover:text-[#1A1A1A] transition-colors">Location &amp; Contact</a></li>
+              </ul>
             </div>
-          </div>
 
-          {/* Col 2 */}
-          <div className="space-y-2.5 sm:space-y-3">
-            <h4 className="font-bold text-sm text-[#0F172A]">Workshop Navigation</h4>
-            <ul className="space-y-2 text-xs text-slate-600">
-              <li><a href="/" className="hover:text-[#1B4332] transition-colors py-1 inline-block">Home</a></li>
-              <li><a href="#schedule" className="hover:text-[#1B4332] transition-colors py-1 inline-block">{scheduleMeta.monthLabel} Schedule</a></li>
-              <li><a href="#experience" className="hover:text-[#1B4332] transition-colors py-1 inline-block">Your Experience</a></li>
-              <li><a href="#instructor-impact" className="hover:text-[#1B4332] transition-colors py-1 inline-block">Instructor &amp; Impact</a></li>
-              <li><a href="#contact-us" className="hover:text-[#1B4332] transition-colors py-1 inline-block">Contact &amp; Location</a></li>
-            </ul>
-          </div>
-
-          {/* Col 3: Dynamic Upcoming Sessions from Database */}
-          <div className="space-y-2.5 sm:space-y-3">
-            <h4 className="font-bold text-sm text-[#0F172A]">{scheduleMeta.monthLabel} Sessions</h4>
-            <ul className="space-y-2 text-xs text-slate-600">
-              {workshops.slice(0, 5).map((ws) => (
-                <li key={ws.id} className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#52B788] shrink-0" />
-                  <span className="truncate">
+            {/* Col 3 */}
+            <div className="lg:col-span-3 space-y-2">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-400 block">
+                {scheduleMeta.monthLabel} Sessions
+              </span>
+              <ul className="space-y-1.5 font-mono text-[11px] text-stone-500">
+                {workshops.slice(0, 5).map((ws) => (
+                  <li key={ws.id} className="truncate">
                     {formatDateShort(ws.date)}: {ws.title.replace('Seasonal Gardening Basics - ', '')}
-                  </span>
-                </li>
-              ))}
-            </ul>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Col 4 */}
+            <div className="lg:col-span-2 space-y-2">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-400 block">
+                Administration
+              </span>
+              <p className="text-[11px] text-stone-500 leading-relaxed">
+                Authorized access for workshop roster management.
+              </p>
+              <Link
+                href="/admin"
+                className="inline-flex items-center gap-1 font-mono text-[11px] font-semibold text-[#2D4A3E] hover:underline"
+              >
+                <span>Admin Portal</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </Link>
+            </div>
           </div>
 
-          {/* Col 4 */}
-          <div className="space-y-2.5 sm:space-y-3">
-            <h4 className="font-bold text-sm text-[#0F172A]">Community Project</h4>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Hosted by Jade Belstead with 10+ years of community gardening involvement. All sessions are 100% free with materials provided.
-            </p>
-          </div>
-        </div>
-
-        {/* Copyright bar */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-6 sm:pt-8 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-          <p>© 2026 Seasonal Gardening Basics • Jade Belstead. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <a href="#schedule" className="hover:text-[#1B4332] transition-colors py-1">Book Spot</a>
-            <span>•</span>
-            <Link href="/admin" className="hover:text-[#1B4332] transition-colors opacity-60 hover:opacity-100 py-1">
-              Admin Portal
-            </Link>
+          {/* Copyright bar */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-mono text-stone-500">
+            <p>© 2026 Seasonal Gardening Basics • Jade Belstead. Kingston, NY.</p>
+            <p>Designed with Swiss International Typographic Principles.</p>
           </div>
         </div>
       </footer>

@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const poppins = Poppins({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-poppins",
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-sans",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Evento | Your Ultimate Event Planning Partner",
-  description: "Craft unforgettable events with Evento. Discover our upcoming sessions, workshops and reserve your spot.",
+  title: "Seasonal Gardening Basics — Jade Belstead | Kingston, NY",
+  description: "Learn to plant and nurture your own herbs and vegetables. Free community gardening workshops every Saturday in October hosted by Jade Belstead.",
 };
 
 export default function RootLayout({
@@ -22,9 +22,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poppins.variable} scroll-smooth antialiased`}
+      className={`${plusJakartaSans.variable} scroll-smooth antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <body className="min-h-full flex flex-col font-sans bg-[#FBFBF9] text-[#1A1A1A]">
+        {children}
+      </body>
     </html>
   );
 }
