@@ -65,7 +65,7 @@ export function OctoberSchedule({ workshops }: OctoberScheduleProps) {
         const isReversed = index % 2 === 1;
         const indexStr = String(index + 1).padStart(2, '0');
         const fallbackImage = index % 2 === 0
-          ? '/studio_hero.jpg'
+          ? '/gardening_hero_studio.jpg'
           : '/hero_gardening.jpg';
         const displayImage = ws.image_url || fallbackImage;
 

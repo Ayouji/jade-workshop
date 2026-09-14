@@ -34,7 +34,7 @@ const CONFIRMED_WORKSHOPS: WorkshopWithAvailability[] = [
     start_time: '10:00 AM',
     end_time: '12:30 PM',
     capacity: 10,
-    image_url: '/studio_hero.jpg',
+    image_url: '/gardening_hero_studio.jpg',
     created_at: new Date().toISOString(),
     booked_seats: 0,
     remaining_seats: 10,
@@ -60,7 +60,7 @@ const CONFIRMED_WORKSHOPS: WorkshopWithAvailability[] = [
     start_time: '10:00 AM',
     end_time: '12:30 PM',
     capacity: 10,
-    image_url: '/studio_hero.jpg',
+    image_url: '/gardening_hero_studio.jpg',
     created_at: new Date().toISOString(),
     booked_seats: 0,
     remaining_seats: 10,
@@ -86,7 +86,7 @@ const CONFIRMED_WORKSHOPS: WorkshopWithAvailability[] = [
     start_time: '10:00 AM',
     end_time: '12:30 PM',
     capacity: 10,
-    image_url: '/studio_hero.jpg',
+    image_url: '/gardening_hero_studio.jpg',
     created_at: new Date().toISOString(),
     booked_seats: 0,
     remaining_seats: 10,
@@ -163,7 +163,7 @@ export default async function HomePage() {
             {/* Full-width editorial photo with rounded corners */}
             <div className="relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-[21/9] rounded-2xl overflow-hidden bg-[#EDE8DF] border border-stone-200 shadow-2xs">
               <Image
-                src="/studio_hero.jpg"
+                src="/gardening_hero_studio.jpg"
                 alt="Creative workshop studio with sunlit wooden communal work tables, natural materials, and craft atmosphere"
                 fill
                 priority
