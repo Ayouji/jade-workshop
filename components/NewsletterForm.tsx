@@ -43,7 +43,7 @@ export function NewsletterForm() {
             onChange={(e) => setFirstName(e.target.value)}
             placeholder="First name"
             required
-            className="w-full h-11 px-3.5 bg-white border border-[#E5E5E0] rounded-md text-xs sm:text-sm text-[#1A1A1A] placeholder:text-stone-400 focus:outline-none focus:border-[#2D4A3E] focus:ring-1 focus:ring-[#2D4A3E] transition-colors"
+            className="w-full h-11 px-3.5 bg-white border border-stone-200 rounded-lg text-xs sm:text-sm text-[#24211D] placeholder:text-stone-400 focus:outline-none focus:border-[#2D4A3E] focus:ring-1 focus:ring-[#2D4A3E] transition-colors"
           />
         </div>
         <div>
@@ -57,7 +57,7 @@ export function NewsletterForm() {
             onChange={(e) => setLastName(e.target.value)}
             placeholder="Last name"
             required
-            className="w-full h-11 px-3.5 bg-white border border-[#E5E5E0] rounded-md text-xs sm:text-sm text-[#1A1A1A] placeholder:text-stone-400 focus:outline-none focus:border-[#2D4A3E] focus:ring-1 focus:ring-[#2D4A3E] transition-colors"
+            className="w-full h-11 px-3.5 bg-white border border-stone-200 rounded-lg text-xs sm:text-sm text-[#24211D] placeholder:text-stone-400 focus:outline-none focus:border-[#2D4A3E] focus:ring-1 focus:ring-[#2D4A3E] transition-colors"
           />
         </div>
       </div>
@@ -74,16 +74,16 @@ export function NewsletterForm() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email address"
           required
-          className="w-full h-11 px-3.5 bg-white border border-[#E5E5E0] rounded-md text-xs sm:text-sm text-[#1A1A1A] placeholder:text-stone-400 focus:outline-none focus:border-[#2D4A3E] focus:ring-1 focus:ring-[#2D4A3E] transition-colors"
+          className="w-full h-11 px-3.5 bg-white border border-stone-200 rounded-lg text-xs sm:text-sm text-[#24211D] placeholder:text-stone-400 focus:outline-none focus:border-[#2D4A3E] focus:ring-1 focus:ring-[#2D4A3E] transition-colors"
         />
       </div>
 
-      {/* Submit Button */}
+      {/* Solid Dark-Green Submit Button */}
       <button
         type="submit"
-        className="w-full h-11 px-6 bg-[#2D4A3E] hover:bg-[#1E342B] text-white text-xs font-semibold uppercase tracking-wider rounded-md transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-2xs focus:ring-2 focus:ring-[#2D4A3E]/30 focus:outline-none"
+        className="w-full h-12 px-6 bg-[#2D4A3E] hover:bg-[#1E342B] text-white text-xs font-semibold uppercase tracking-widest rounded-full transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs focus:ring-2 focus:ring-[#2D4A3E]/30 focus:outline-none"
       >
-        <span>Subscribe to Garden Tips</span>
+        <span>Subscribe to Seasonal Notes</span>
         <ArrowUpRight className="w-4 h-4 shrink-0" />
       </button>
     </form>
